@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>About — GaiaThinker</title>
+<meta name="description" content="About GaiaLink Intelligence Systems Inc. — building AI-powered climate literacy tools for BC schools."/>
+<style>
+:root{--ms-blue:#0078D4;--ms-blue-dk:#005A9E;--ms-blue-lt:#EFF6FC;--ms-blue-20:#DEECF9;--ms-teal:#00B294;--ms-green:#107C10;--ms-green-lt:#DFF6DD;--ms-neutral-dk:#201F1E;--ms-neutral-90:#323130;--ms-neutral-60:#605E5C;--ms-neutral-40:#A19F9D;--ms-neutral-30:#EDEBE9;--ms-neutral-20:#F3F2F1;--ms-neutral-10:#FAF9F8;--e2:0 1.6px 3.6px rgba(0,0,0,.132),0 .3px .9px rgba(0,0,0,.108);--e4:0 3.2px 7.2px rgba(0,0,0,.132),0 .6px 1.8px rgba(0,0,0,.108);--r:4px;--rl:8px;--font:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ms-neutral-90);background:#fff;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:48px;display:flex;align-items:center;padding:0 24px;background:rgba(255,255,255,.88);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--ms-neutral-30);box-shadow:var(--e2)}
+.nav-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-name{font-size:15px;letter-spacing:-.2px}.logo-name .g{font-weight:300;color:var(--ms-teal)}.logo-name .t{font-weight:700;color:var(--ms-neutral-dk)}
+.nav-space{flex:1}
+.nav-link{font-size:13px;color:var(--ms-neutral-60);text-decoration:none;padding:5px 12px;border-radius:var(--r);transition:background .1s}
+.nav-link:hover{background:var(--ms-neutral-20);color:var(--ms-neutral-dk)}
+.nav-btn{background:var(--ms-blue);color:white;border:none;border-radius:var(--r);padding:6px 18px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:var(--font)}
+.nav-btn:hover{background:var(--ms-blue-dk)}
+.page-hero{background:linear-gradient(135deg,#001535,#0060B0 60%,#00B294 100%);padding:88px 24px 56px;text-align:center}
+.page-hero .eyebrow{font-size:11px;font-weight:700;color:var(--ms-teal);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+.page-hero h1{font-size:clamp(28px,5vw,48px);font-weight:700;color:white;letter-spacing:-.5px;margin-bottom:12px}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.65);max-width:560px;margin:0 auto;line-height:1.65}
+.content{max-width:1100px;margin:0 auto;padding:64px 24px 80px}
+.sec{margin-bottom:72px}
+.sec-label{font-size:11px;font-weight:700;color:var(--ms-teal);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px}
+.sec-title{font-size:clamp(24px,3.5vw,38px);font-weight:700;color:var(--ms-neutral-dk);letter-spacing:-.4px;margin-bottom:16px}
+.sec-body{font-size:16px;color:var(--ms-neutral-60);line-height:1.75}
+.sec-body p+p{margin-top:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--ms-neutral-30);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);overflow:hidden;margin-top:48px}
+.value{background:white;padding:26px 22px}
+.value:hover{background:var(--ms-blue-lt)}
+.v-icon{width:36px;height:36px;background:var(--ms-blue-lt);border-radius:var(--r);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.v-icon svg{width:20px;height:20px;fill:var(--ms-blue)}
+.v-title{font-size:14px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:6px}
+.v-body{font-size:13px;color:var(--ms-neutral-60);line-height:1.6}
+.ms-strip{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:32px;margin-top:48px}
+.ms-strip-label{font-size:11px;font-weight:700;color:var(--ms-neutral-40);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.ms-pills{display:flex;gap:10px;flex-wrap:wrap}
+.ms-pill{display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--ms-neutral-30);border-radius:var(--r);padding:8px 14px;font-size:13px;font-weight:600;color:var(--ms-neutral-dk)}
+.ms-pill svg{width:16px;height:16px}
+.timeline{margin-top:48px;position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--ms-neutral-30)}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-dot{position:absolute;left:-28px;top:3px;width:14px;height:14px;background:white;border:2px solid var(--ms-blue);border-radius:50%}
+.tl-year{font-size:11px;font-weight:700;color:var(--ms-blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.tl-title{font-size:14px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:3px}
+.tl-body{font-size:13px;color:var(--ms-neutral-60);line-height:1.55}
+.cta-band{background:linear-gradient(140deg,#001030,#003070 45%,#0078D4);border-radius:var(--rl);padding:48px 40px;text-align:center;margin-top:64px}
+.cta-band h3{font-size:24px;font-weight:700;color:white;margin-bottom:10px;letter-spacing:-.3px}
+.cta-band p{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-band a{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--ms-blue);border-radius:var(--r);padding:12px 28px;font-size:14px;font-weight:700;text-decoration:none;transition:all .15s}
+.cta-band a:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+footer{background:var(--ms-neutral-dk);padding:24px}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-logo{display:flex;align-items:center;gap:8px}
+.foot-name{font-size:13px;color:white}.foot-name .g{font-weight:300;color:var(--ms-teal)}.foot-name .t{font-weight:700}
+.foot-links{display:flex;gap:16px}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none}.foot-links a:hover{color:white}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.2);width:100%;text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:720px){.two-col{grid-template-columns:1fr}.values{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="ng" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#0078D4"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#ng)"/><line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="17" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="39" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="14" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="logo-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </a>
+    <div class="nav-space"></div>
+    <a class="nav-link" href="/">Home</a><a class="nav-link" href="/educators">Educators</a>
+    <a class="nav-btn" href="/#contact">Contact Us</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="eyebrow">About</div>
+  <h1>We believe the next generation deserves better tools.</h1>
+  <p>GaiaLink Intelligence Systems is a British Columbia company building AI-powered education for the climate era.</p>
+</div>
+<div class="content">
+  <div class="two-col sec">
+    <div>
+      <div class="sec-label">Our Mission</div>
+      <div class="sec-title">Turn climate anxiety into civic competence.</div>
+      <div class="sec-body">
+        <p>BC's Gen Z students are deeply aware of the climate crisis — and deeply underprepared to engage with it. They absorb headlines about a problem they didn't create and can't yet influence. The result is anxiety without agency.</p>
+        <p>GaiaThinker flips that. We take British Columbia's actual climate data — real emissions, real land use, real policy decisions — and put students in the role of decision-maker, not spectator. Every session ends with a recommendation, not a summary.</p>
+        <p>Our AI tutor, Professor Ember, never gives answers. It asks the right question at the right moment, pushing students to build reasoning that outlasts the lesson.</p>
+      </div>
+    </div>
+    <div>
+      <div class="sec-label">The Company</div>
+      <div class="sec-title">GaiaLink Intelligence Systems Inc.</div>
+      <div class="sec-body">
+        <p>Founded in British Columbia, GaiaLink Intelligence Systems builds AI tools that serve the public interest — starting with climate education for the province that will need it most.</p>
+        <p>We are a Microsoft Azure partner, building on Azure OpenAI Service with Canadian data residency. Our work is aligned with Microsoft's Responsible AI principles: fairness, reliability, safety, privacy, inclusiveness, transparency, and accountability.</p>
+        <p>We are designed for BC public school procurement — FIPPA-aligned, no student accounts, no personal data collected.</p>
+      </div>
+      <div class="ms-strip">
+        <div class="ms-strip-label">Microsoft Ecosystem</div>
+        <div class="ms-pills">
+          <div class="ms-pill"><svg viewBox="0 0 24 24" fill="#0078D4"><path d="M13.5 5L7 18h3.5l1-2.5H17l1 2.5H21L14.5 5h-1zm0 3.5l2 5h-4l2-5z"/></svg>Azure OpenAI</div>
+          <div class="ms-pill"><svg viewBox="0 0 24 24" fill="#0078D4"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Canadian Data</div>
+          <div class="ms-pill"><svg viewBox="0 0 24 24" fill="#0078D4"><circle cx="12" cy="9" r="3"/><path d="M12 13c-3.3 0-5 1.7-5 3v1h10v-1c0-1.3-1.7-3-5-3z"/></svg>Responsible AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Our Values</div>
+    <div class="sec-title">What we stand for</div>
+    <div class="values">
+      <div class="value"><div class="v-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="v-title">Privacy by Design</div><div class="v-body">No student accounts. No personal data. FIPPA-compliant before the first lesson loads. Privacy is architecture, not policy.</div></div>
+      <div class="value"><div class="v-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><div class="v-title">Socratic AI</div><div class="v-body">Professor Ember never gives answers. It asks the right question at the right moment. Thinking is the product, not the answer.</div></div>
+      <div class="value"><div class="v-icon"><svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20c9 0 10-8 10-8-1.7 0-2.5.7-3.67 1.4C14.85 11.4 15.9 8 17 8z"/></svg></div><div class="v-title">BC First</div><div class="v-body">We use British Columbia's actual data, actual policy, and actual landscape. Students learn about the place they will govern — not an abstraction.</div></div>
+      <div class="value"><div class="v-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><div class="v-title">Civic Agency</div><div class="v-body">Every session ends with a recommendation. Students aren't consumers of climate content — they're decision-makers in training.</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Roadmap</div>
+    <div class="sec-title">Where we're going</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2026</div><div class="tl-title">BC Pilot — Grades 9–12</div><div class="tl-body">Azure OpenAI · FIPPA-aligned · No student accounts · Free access for pilot schools across British Columbia</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2027</div><div class="tl-title">Province-wide Scale</div><div class="tl-body">Microsoft Teams Assignments · Entra ID SSO · Educator dashboard · Power BI reporting for districts</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2028</div><div class="tl-title">National Expansion</div><div class="tl-body">French immersion curriculum · Additional provinces · Microsoft Copilot integration · First Nations language support</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2030</div><div class="tl-title">International</div><div class="tl-body">IB curriculum alignment · US Pacific Northwest · EU AI Act compliance · UNESCO SDG partnership</div></div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h3>Ready to bring GaiaThinker to your school?</h3>
+    <p>Pilot access is free for BC schools in Autumn 2026. No budget required. No IT setup. Response within one business day.</p>
+    <a href="/#contact">Contact Us &rarr;</a>
+  </div>
+</div>
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo"><svg width="22" height="22" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="fg" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#4FC3E8"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#fg)"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg><span class="foot-name"><span class="g">Gaia</span><span class="t">Thinker</span></span></div>
+    <div class="foot-links"><a href="/">Home</a><a href="/educators">Educators</a><a href="/districts">Districts</a><a href="/privacy">Privacy</a><a href="/support">Support</a></div>
+    <div class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. All rights reserved. GaiaThinker&trade;</div>
+  </div>
+</footer>
+</body>
+</html>

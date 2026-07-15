@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Support — GaiaThinker</title>
+<meta name="description" content="GaiaThinker support centre. Get help, submit a request, or contact our team."/>
+<style>
+:root{--ms-blue:#0078D4;--ms-blue-dk:#005A9E;--ms-blue-lt:#EFF6FC;--ms-blue-20:#DEECF9;--ms-teal:#00B294;--ms-green:#107C10;--ms-green-lt:#DFF6DD;--ms-neutral-dk:#201F1E;--ms-neutral-90:#323130;--ms-neutral-60:#605E5C;--ms-neutral-40:#A19F9D;--ms-neutral-30:#EDEBE9;--ms-neutral-20:#F3F2F1;--ms-neutral-10:#FAF9F8;--e2:0 1.6px 3.6px rgba(0,0,0,.132),0 .3px .9px rgba(0,0,0,.108);--e4:0 3.2px 7.2px rgba(0,0,0,.132),0 .6px 1.8px rgba(0,0,0,.108);--r:4px;--rl:8px;--font:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ms-neutral-90);background:#fff;-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:48px;display:flex;align-items:center;padding:0 24px;background:rgba(255,255,255,.88);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--ms-neutral-30);box-shadow:var(--e2)}
+.nav-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-name{font-size:15px;letter-spacing:-.2px}.logo-name .g{font-weight:300;color:var(--ms-teal)}.logo-name .t{font-weight:700;color:var(--ms-neutral-dk)}
+.nav-space{flex:1}
+.nav-link{font-size:13px;color:var(--ms-neutral-60);text-decoration:none;padding:5px 12px;border-radius:var(--r);transition:background .1s,color .1s}
+.nav-link:hover{background:var(--ms-neutral-20);color:var(--ms-neutral-dk)}
+.nav-btn{background:var(--ms-blue);color:white;border:none;border-radius:var(--r);padding:6px 18px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:var(--font)}
+.nav-btn:hover{background:var(--ms-blue-dk)}
+
+.page-hero{background:linear-gradient(135deg,#001535,#0078D4);padding:88px 24px 56px;text-align:center}
+.page-hero .eyebrow{font-size:11px;font-weight:700;color:var(--ms-teal);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+.page-hero h1{font-size:clamp(28px,5vw,48px);font-weight:700;color:white;letter-spacing:-.5px;margin-bottom:12px}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.65);max-width:520px;margin:0 auto;line-height:1.65}
+
+.content{max-width:1100px;margin:0 auto;padding:64px 24px 80px}
+
+/* contact channels */
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
+.channel{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:28px 24px;transition:border-color .15s,box-shadow .15s}
+.channel:hover{border-color:var(--ms-blue);box-shadow:var(--e2)}
+.ch-icon{width:40px;height:40px;border-radius:var(--r);background:var(--ms-blue-lt);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.ch-icon svg{width:22px;height:22px;fill:var(--ms-blue)}
+.ch-title{font-size:15px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:6px}
+.ch-body{font-size:13px;color:var(--ms-neutral-60);line-height:1.6;margin-bottom:14px}
+.ch-link{font-size:13px;color:var(--ms-blue);text-decoration:none;font-weight:600}
+.ch-link:hover{text-decoration:underline}
+.sla-badge{display:inline-block;background:var(--ms-green-lt);color:var(--ms-green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:.4px;margin-top:8px}
+
+/* FAQ */
+.faq-title{font-size:22px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:24px}
+.faq-list{display:flex;flex-direction:column;gap:2px;border-radius:var(--rl);overflow:hidden;border:1px solid var(--ms-neutral-30);margin-bottom:64px}
+.faq-item{background:white}
+.faq-q{width:100%;background:none;border:none;border-top:1px solid var(--ms-neutral-30);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:14px;font-weight:600;color:var(--ms-neutral-dk);text-align:left;font-family:var(--font);transition:background .1s}
+.faq-item:first-child .faq-q{border-top:none}
+.faq-q:hover{background:var(--ms-neutral-10)}
+.faq-q svg{width:18px;height:18px;fill:var(--ms-neutral-60);flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q svg{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 20px 18px;font-size:14px;color:var(--ms-neutral-60);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* DPA box */
+.dpa-box{background:var(--ms-blue-lt);border:1px solid var(--ms-blue-20);border-radius:var(--rl);padding:28px 32px;display:flex;gap:20px;align-items:flex-start}
+.dpa-icon{width:40px;height:40px;background:var(--ms-blue);border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dpa-icon svg{width:22px;height:22px;fill:white}
+.dpa-body h3{font-size:16px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:6px}
+.dpa-body p{font-size:14px;color:var(--ms-neutral-60);line-height:1.65;margin-bottom:12px}
+.dpa-body a{color:var(--ms-blue);font-weight:600;text-decoration:none}
+.dpa-body a:hover{text-decoration:underline}
+
+footer{background:var(--ms-neutral-dk);padding:32px 24px 20px}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-logo{display:flex;align-items:center;gap:9px}
+.foot-name{font-size:14px;color:white}.foot-name .g{font-weight:300;color:var(--ms-teal)}.foot-name .t{font-weight:700}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .12s}
+.foot-links a:hover{color:white}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.25);width:100%;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07)}
+
+@media(max-width:720px){.channels{grid-template-columns:1fr}.dpa-box{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="ng" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#0078D4"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#ng)"/><line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="17" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="39" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="14" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="logo-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </a>
+    <div class="nav-space"></div>
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/educators">Educators</a>
+    <a class="nav-btn" href="/#contact">Contact Us</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Support</div>
+  <h1>How can we help?</h1>
+  <p>Our team responds within one business day. For Data Processing Agreement requests, see below.</p>
+</div>
+
+<div class="content">
+
+  <!-- Contact channels -->
+  <div class="channels">
+    <div class="channel">
+      <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div class="ch-title">Email Support</div>
+      <div class="ch-body">For general questions, pilot access requests, onboarding support, and curriculum alignment queries.</div>
+      <a class="ch-link" href="mailto:ali.reza.farshadfard@gaiasystems.ca">ali.reza.farshadfard@gaiasystems.ca</a>
+      <div><span class="sla-badge">Response within 1 business day</span></div>
+    </div>
+    <div class="channel">
+      <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z"/></svg></div>
+      <div class="ch-title">Data Processing Agreement</div>
+      <div class="ch-body">School districts requiring a DPA or Privacy Impact Assessment support for procurement approval.</div>
+      <a class="ch-link" href="mailto:ali.reza.farshadfard@gaiasystems.ca?subject=DPA Request — GaiaThinker">Request a DPA &rarr;</a>
+      <div><span class="sla-badge">Response within 2 business days</span></div>
+    </div>
+    <div class="channel">
+      <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+      <div class="ch-title">Pilot Program</div>
+      <div class="ch-body">BC schools interested in joining the Autumn 2026 pilot — no budget or IT setup required.</div>
+      <a class="ch-link" href="/#contact">Request Access &rarr;</a>
+      <div><span class="sla-badge">Free for pilot schools</span></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-title">Frequently Asked Questions</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">Do students need accounts or login credentials?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">No. GaiaThinker requires no student accounts, no student emails, and no individual login. Students access the platform through an educator-initiated session. This is a core FIPPA design requirement and is non-negotiable.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">Is GaiaThinker FIPPA-compliant?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">Yes. GaiaThinker is designed specifically for BC public school procurement under FIPPA. No personal student data is collected. All AI processing happens via Microsoft Azure OpenAI Service in Canadian data centres. Full details are in our <a href="/privacy" style="color:var(--ms-blue)">Privacy Policy</a>.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">What IT setup does my school need?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">None. GaiaThinker runs in any modern web browser — Chrome, Edge, Safari, Firefox. No software installation, no firewall changes, no IT tickets required. If students can access a website, they can access GaiaThinker.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">Which BC curriculum outcomes does GaiaThinker address?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">GaiaThinker is aligned to BC's revised Grades 9–12 curriculum for Science, Social Studies, and Environmental Science. Specific Big Ideas addressed include climate systems, civic decision-making, and environmental stewardship. Contact us for a curriculum alignment map.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">What does the pilot cost?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">Pilot access for the Autumn 2026 cohort is free for participating British Columbia schools. There is no budget approval required to participate.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">Does GaiaThinker work with Microsoft Teams and Entra ID?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">Microsoft Teams Assignments integration and Entra ID single sign-on are on the roadmap for Q1 2027. The current pilot version runs as a standalone web platform requiring no Microsoft account from students.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">How do I request a Data Processing Agreement?<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <div class="faq-a">Email <a href="mailto:ali.reza.farshadfard@gaiasystems.ca?subject=DPA Request — GaiaThinker" style="color:var(--ms-blue)">ali.reza.farshadfard@gaiasystems.ca</a> with "DPA Request" in the subject line. Include your district name and the name of your district's privacy officer. We will respond within two business days with a draft DPA and Privacy Impact Assessment support document.</div>
+    </div>
+  </div>
+
+  <!-- DPA Box -->
+  <div class="dpa-box">
+    <div class="dpa-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-3-7H9v-2h6v2zm0 4H9v-2h6v2z"/></svg></div>
+    <div class="dpa-body">
+      <h3>District Procurement & DPA Requests</h3>
+      <p>School districts in British Columbia may require a Data Processing Agreement (DPA) or Privacy Impact Assessment (PIA) support as part of their procurement approval process. GaiaThinker is designed to meet these requirements. To initiate a DPA request, email us with "DPA Request" in the subject line and we will respond within two business days.</p>
+      <a href="mailto:ali.reza.farshadfard@gaiasystems.ca?subject=DPA Request — GaiaThinker">Begin DPA Request &rarr;</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <svg width="24" height="24" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="fg" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#4FC3E8"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#fg)"/><line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round"/><line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round"/><line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="foot-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </div>
+    <div class="foot-links">
+      <a href="/">Home</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/accessibility">Accessibility</a><a href="mailto:ali.reza.farshadfard@gaiasystems.ca">Contact</a>
+    </div>
+    <div class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. All rights reserved. GaiaThinker&trade;</div>
+  </div>
+</footer>
+
+<script>
+function toggle(btn){
+  const item=btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>

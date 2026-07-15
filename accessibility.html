@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Accessibility — GaiaThinker</title>
+<meta name="description" content="GaiaThinker accessibility statement. WCAG 2.1 AA commitment, Microsoft accessibility alignment, and how to request accommodations."/>
+<style>
+:root{--ms-blue:#0078D4;--ms-blue-dk:#005A9E;--ms-blue-lt:#EFF6FC;--ms-blue-20:#DEECF9;--ms-teal:#00B294;--ms-neutral-dk:#201F1E;--ms-neutral-90:#323130;--ms-neutral-60:#605E5C;--ms-neutral-30:#EDEBE9;--ms-neutral-20:#F3F2F1;--ms-neutral-10:#FAF9F8;--e2:0 1.6px 3.6px rgba(0,0,0,.132),0 .3px .9px rgba(0,0,0,.108);--r:4px;--rl:8px;--font:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ms-neutral-90);background:#fff;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:48px;display:flex;align-items:center;padding:0 24px;background:rgba(255,255,255,.88);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--ms-neutral-30);box-shadow:var(--e2)}
+.nav-inner{max-width:860px;margin:0 auto;width:100%;display:flex;align-items:center}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-name{font-size:15px;letter-spacing:-.2px}.logo-name .g{font-weight:300;color:var(--ms-teal)}.logo-name .t{font-weight:700;color:var(--ms-neutral-dk)}
+.nav-back{margin-left:auto;font-size:13px;color:var(--ms-blue);text-decoration:none}
+.nav-back:hover{text-decoration:underline}
+.page-hero{background:linear-gradient(135deg,#001535,#004080 50%,#0078D4);padding:88px 24px 56px;text-align:center}
+.page-hero .eyebrow{font-size:11px;font-weight:700;color:var(--ms-teal);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+.page-hero h1{font-size:clamp(28px,5vw,44px);font-weight:700;color:white;letter-spacing:-.5px;margin-bottom:10px}
+.page-hero p{font-size:14px;color:rgba(255,255,255,.55)}
+.content{max-width:860px;margin:0 auto;padding:56px 24px 80px}
+.notice{background:var(--ms-blue-lt);border:1px solid var(--ms-blue-20);border-radius:var(--r);padding:16px 20px;margin-bottom:40px;display:flex;gap:12px;align-items:flex-start}
+.notice svg{width:18px;height:18px;fill:var(--ms-blue);flex-shrink:0;margin-top:1px}
+.notice p{font-size:14px;color:var(--ms-blue);line-height:1.55}
+h2{font-size:18px;font-weight:600;color:var(--ms-neutral-dk);margin:40px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--ms-neutral-30)}
+h2:first-of-type{margin-top:0}
+p{font-size:15px;color:var(--ms-neutral-90);line-height:1.75;margin-bottom:12px}
+ul{margin:8px 0 12px 20px}
+li{font-size:15px;color:var(--ms-neutral-90);line-height:1.75;margin-bottom:4px}
+strong{font-weight:600;color:var(--ms-neutral-dk)}
+.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+.status-card{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--r);padding:16px}
+.status-card.pass{border-left:3px solid #107C10}
+.status-card.partial{border-left:3px solid #FFC83D}
+.sc-title{font-size:13px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:4px}
+.sc-body{font-size:12px;color:var(--ms-neutral-60);line-height:1.55}
+.sc-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
+.badge-pass{background:#DFF6DD;color:#107C10}
+.badge-partial{background:#FFF4CE;color:#8A6914}
+.contact-box{background:var(--ms-neutral-20);border:1px solid var(--ms-neutral-30);border-radius:var(--r);padding:20px 24px;margin-top:40px}
+.contact-box p{margin-bottom:4px}
+.contact-box a{color:var(--ms-blue);text-decoration:none}
+.contact-box a:hover{text-decoration:underline}
+footer{background:var(--ms-neutral-dk);padding:24px}
+.foot-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-logo{display:flex;align-items:center;gap:8px}
+.foot-name{font-size:13px;color:white}.foot-name .g{font-weight:300;color:var(--ms-teal)}.foot-name .t{font-weight:700}
+.foot-links{display:flex;gap:16px}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none}.foot-links a:hover{color:white}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.2);width:100%;text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:640px){.status-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="ng" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#0078D4"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#ng)"/><line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="17" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="39" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="14" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="logo-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </a>
+    <a class="nav-back" href="/">&larr; Back to gaiathinker.ca</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="eyebrow">Accessibility</div>
+  <h1>Accessibility Statement</h1>
+  <p>Last reviewed: July 2026 &nbsp;&middot;&nbsp; GaiaLink Intelligence Systems Inc.</p>
+</div>
+<div class="content">
+  <div class="notice">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+    <p><strong>Our commitment:</strong> GaiaThinker is committed to WCAG 2.1 Level AA conformance. Accessibility is a product requirement, not an afterthought — all new features are reviewed against WCAG criteria before release.</p>
+  </div>
+
+  <h2>1. Our Commitment</h2>
+  <p>GaiaLink Intelligence Systems Inc. is committed to making GaiaThinker accessible to all students and educators, including those with disabilities. We design in alignment with the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> standard, and with Microsoft's Accessibility Design Principles, which inform the Fluent Design System used throughout our platform.</p>
+  <p>As an AI platform for British Columbia schools, we recognize that students with a wide range of abilities — visual, auditory, motor, and cognitive — will use GaiaThinker. All students deserve equal access to climate literacy education.</p>
+
+  <h2>2. Conformance Status</h2>
+  <p>GaiaThinker is currently in <strong>partial conformance</strong> with WCAG 2.1 Level AA. We are an early-stage product and some non-conformances exist; they are listed below under Known Limitations.</p>
+  <div class="status-grid">
+    <div class="status-card pass"><span class="sc-badge badge-pass">Passes</span><div class="sc-title">Keyboard navigation</div><div class="sc-body">All primary navigation, menus, and forms are operable via keyboard alone.</div></div>
+    <div class="status-card pass"><span class="sc-badge badge-pass">Passes</span><div class="sc-title">Colour contrast</div><div class="sc-body">All text meets WCAG 2.1 AA contrast ratios (4.5:1 for normal text, 3:1 for large text).</div></div>
+    <div class="status-card pass"><span class="sc-badge badge-pass">Passes</span><div class="sc-title">Text resize</div><div class="sc-body">All content remains readable and functional at 200% browser zoom without horizontal scrolling.</div></div>
+    <div class="status-card pass"><span class="sc-badge badge-pass">Passes</span><div class="sc-title">Link purpose</div><div class="sc-body">All links have descriptive text. No "click here" or ambiguous link labels.</div></div>
+    <div class="status-card pass"><span class="sc-badge badge-pass">Passes</span><div class="sc-title">Form labels</div><div class="sc-body">All form fields have explicit labels. Error messages are descriptive and programmatically associated.</div></div>
+    <div class="status-card partial"><span class="sc-badge badge-partial">In Progress</span><div class="sc-title">Screen reader support</div><div class="sc-body">Core pages pass. AI tutor session views are being updated for full ARIA landmark coverage.</div></div>
+  </div>
+
+  <h2>3. Microsoft Accessibility Alignment</h2>
+  <p>GaiaThinker is built on Microsoft's Fluent Design System, which embeds accessibility as a core principle. Our AI component (Professor Ember) runs on <strong>Azure OpenAI Service</strong>, which is covered by Microsoft's Accessibility Conformance Report. Where applicable, we inherit accessibility assurances from the Microsoft platform layer.</p>
+  <ul>
+    <li>Fluent Design tokens ensure consistent focus indicators across all interactive elements</li>
+    <li>Colour system uses Microsoft's neutral and semantic palette, validated for contrast compliance</li>
+    <li>Microsoft Teams integration (roadmap) will inherit Teams' WCAG AA certification</li>
+  </ul>
+
+  <h2>4. Known Limitations</h2>
+  <p>The following limitations exist in the current version. We are actively working to resolve them:</p>
+  <ul>
+    <li><strong>AI tutor session — ARIA live regions:</strong> Professor Ember's real-time responses are not yet announced via ARIA live regions to all screen readers. Targeted for resolution in Q3 2026.</li>
+    <li><strong>Data visualizations:</strong> Climate data charts currently lack text alternatives. Alt text and data table equivalents are in development.</li>
+    <li><strong>PDF resources:</strong> Some linked third-party curriculum resources (external PDFs) may not be fully accessible. We are auditing and replacing where possible.</li>
+  </ul>
+
+  <h2>5. Supported Assistive Technologies</h2>
+  <p>GaiaThinker has been tested with the following assistive technologies:</p>
+  <ul>
+    <li>NVDA + Google Chrome (Windows)</li>
+    <li>VoiceOver + Safari (macOS / iPad)</li>
+    <li>Windows Narrator + Microsoft Edge</li>
+    <li>Keyboard-only navigation (Tab, Shift+Tab, Enter, Space, Arrow keys)</li>
+  </ul>
+  <p>GaiaThinker is designed to work on school-issued devices including Chromebooks, iPad, and Windows computers without requiring additional software installation.</p>
+
+  <h2>6. Requesting Accommodations</h2>
+  <p>If you or a student need an accommodation that GaiaThinker does not currently support, please contact us. We respond to accessibility requests within two business days.</p>
+  <div class="contact-box">
+    <p><strong>GaiaLink Intelligence Systems Inc.</strong></p>
+    <p>British Columbia, Canada</p>
+    <p>Email: <a href="mailto:ali.reza.farshadfard@gaiasystems.ca?subject=Accessibility Request">ali.reza.farshadfard@gaiasystems.ca</a></p>
+    <p style="margin-top:8px;font-size:13px;color:var(--ms-neutral-60)">Include "Accessibility Request" in the subject line. Describe the barrier you encountered and the assistive technology or accommodation needed.</p>
+  </div>
+
+  <h2>7. Formal Complaints</h2>
+  <p>If you are not satisfied with our response to your accessibility concern, you may contact the <a href="https://www.oipc.bc.ca/" style="color:var(--ms-blue)" target="_blank" rel="noopener">Office of the Information and Privacy Commissioner for BC</a> or use your institution's formal complaint process.</p>
+
+  <h2>8. Review Schedule</h2>
+  <p>This accessibility statement is reviewed every six months and updated whenever significant changes are made to the platform. The next scheduled review is January 2027.</p>
+</div>
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <svg width="22" height="22" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="fg" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#4FC3E8"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#fg)"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="foot-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </div>
+    <div class="foot-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div>
+    <div class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. All rights reserved. GaiaThinker&trade;</div>
+  </div>
+</footer>
+</body>
+</html>
