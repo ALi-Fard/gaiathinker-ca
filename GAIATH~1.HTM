@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GaiaThinker — AI Climate Learning Platform | Built for Microsoft Education</title>
+  <style>
+    /* ── Microsoft Fluent Design Tokens ── */
+    :root {
+      --ms-blue:       #0078D4;
+      --ms-blue-dark:  #005A9E;
+      --ms-blue-light: #2B88D8;
+      --ms-blue-10:    #EFF6FC;
+      --ms-blue-20:    #DEECF9;
+      --ms-teal:       #00B294;
+      --ms-green:      #107C10;
+      --ms-purple:     #5C2D91;
+      --ms-gray-10:    #FAF9F8;
+      --ms-gray-20:    #F3F2F1;
+      --ms-gray-30:    #EDEBE9;
+      --ms-gray-40:    #E1DFDD;
+      --ms-gray-50:    #D2D0CE;
+      --ms-gray-90:    #3B3A39;
+      --ms-gray-100:   #323130;
+      --ms-gray-150:   #201F1E;
+      --ms-white:      #FFFFFF;
+      --shadow-4:  0 1.6px 3.6px rgba(0,0,0,.13), 0 .3px .9px rgba(0,0,0,.11);
+      --shadow-8:  0 3.2px 7.2px rgba(0,0,0,.13), 0 .6px 1.8px rgba(0,0,0,.11);
+      --shadow-16: 0 6.4px 14.4px rgba(0,0,0,.13), 0 1.2px 3.6px rgba(0,0,0,.11);
+      --font: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --r: 4px;
+      --rl: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--ms-gray-100); background: #fff; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      height: 48px; display: flex; align-items: center; padding: 0 24px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--ms-gray-30);
+    }
+    .nav-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 4px; }
+    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; margin-right: 24px; flex-shrink: 0; }
+    .nav-logo-box {
+      width: 28px; height: 28px; background: var(--ms-blue); border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-box svg { width: 17px; height: 17px; fill: white; }
+    .nav-logo-text { font-size: 15px; font-weight: 600; color: var(--ms-gray-150); letter-spacing: -.2px; }
+    .nav-link { text-decoration: none; color: var(--ms-gray-90); font-size: 13px; padding: 4px 10px; border-radius: var(--r); transition: background .12s; }
+    .nav-link:hover { background: var(--ms-gray-20); color: var(--ms-gray-150); }
+    .nav-spacer { flex: 1; }
+    .nav-btn {
+      background: var(--ms-blue); color: white; border: none; border-radius: var(--r);
+      padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+      text-decoration: none; font-family: var(--font);
+      transition: background .12s;
+    }
+    .nav-btn:hover { background: var(--ms-blue-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 48px 24px 0;
+      background: linear-gradient(140deg, #001535 0%, #002D62 25%, #0055A0 60%, #0078D4 80%, #00A693 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(0,178,148,.15) 0%, transparent 60%);
+    }
+    /* subtle grid overlay */
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      padding: 80px 0; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 100px; padding: 5px 14px; font-size: 12px;
+      color: rgba(255,255,255,.9); font-weight: 500; margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: #00B294; border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 {
+      font-size: clamp(30px, 4.5vw, 54px); font-weight: 700; color: white;
+      line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px;
+    }
+    .hero h1 em { color: #00B294; font-style: normal; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.75); line-height: 1.65; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--r); padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; font-family: var(--font); transition: all .15s; border: none; }
+    .btn-white { background: white; color: var(--ms-blue); }
+    .btn-white:hover { background: #f0f0f0; transform: translateY(-1px); box-shadow: var(--shadow-16); }
+    .btn-ghost-white { background: rgba(255,255,255,.1); color: white; border: 1.5px solid rgba(255,255,255,.4); backdrop-filter: blur(8px); }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.7); }
+    .btn-blue { background: var(--ms-blue); color: white; }
+    .btn-blue:hover { background: var(--ms-blue-dark); }
+    .btn-outline-blue { background: transparent; color: var(--ms-blue); border: 1.5px solid var(--ms-blue); }
+    .btn-outline-blue:hover { background: var(--ms-blue-10); }
+    .btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,.5); }
+    .btn-outline-white:hover { background: rgba(255,255,255,.1); border-color: white; }
+
+    /* Hero visual panel */
+    .hero-panel {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--rl);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+    .panel-bar {
+      background: rgba(0,0,0,.22); padding: 10px 16px;
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .panel-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .panel-label { margin-left: 8px; font-size: 12px; color: rgba(255,255,255,.5); }
+    .panel-body { padding: 20px; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .stat-tile {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r); padding: 14px;
+    }
+    .stat-num { font-size: 26px; font-weight: 700; color: white; line-height: 1; margin-bottom: 4px; }
+    .stat-lbl { font-size: 10px; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .5px; }
+    /* Chat widget */
+    .chat-wrap { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 14px; }
+    .chat-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+    .chat-avatar {
+      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 13px;
+    }
+    .chat-bubble {
+      background: rgba(255,255,255,.1); border-radius: 0 8px 8px 8px;
+      padding: 9px 12px; font-size: 12.5px; color: rgba(255,255,255,.88); line-height: 1.5; flex: 1;
+    }
+    .chat-bubble.ember { background: rgba(0,178,148,.18); border-radius: 8px 0 8px 8px; }
+    .typing { display: flex; gap: 4px; padding: 9px 12px; background: rgba(255,255,255,.07); border-radius: 0 8px 8px 8px; }
+    .typing span { width: 5px; height: 5px; background: rgba(255,255,255,.45); border-radius: 50%; animation: typ 1.2s infinite; }
+    .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typ { 0%,100%{transform:translateY(0);opacity:.4} 50%{transform:translateY(-4px);opacity:1} }
+
+    /* ── MS STRIP ── */
+    .ms-strip { background: var(--ms-gray-10); border-top: 1px solid var(--ms-gray-30); border-bottom: 1px solid var(--ms-gray-30); padding: 14px 24px; }
+    .ms-strip-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .strip-label { font-size: 11px; font-weight: 600; color: var(--ms-gray-90); text-transform: uppercase; letter-spacing: .6px; white-space: nowrap; }
+    .strip-divider { width: 1px; height: 20px; background: var(--ms-gray-40); }
+    .ms-badge { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ms-gray-100); font-weight: 500; }
+    .badge-icon { width: 22px; height: 22px; border-radius: 4px; flex-shrink: 0; }
+
+    /* ── SHARED SECTION ── */
+    section { padding: 80px 24px; }
+    .sec { max-width: 1200px; margin: 0 auto; }
+    .label { font-size: 12px; font-weight: 600; color: var(--ms-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .title { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; color: var(--ms-gray-150); line-height: 1.2; letter-spacing: -.4px; margin-bottom: 16px; }
+    .sub { font-size: 16px; color: var(--ms-gray-90); line-height: 1.65; }
+    .center { text-align: center; }
+    .center .sub { margin: 0 auto; }
+
+    /* ── PROBLEM ── */
+    .problem { background: var(--ms-gray-150); }
+    .problem .label { color: var(--ms-teal); }
+    .problem .title { color: white; }
+    .problem .sub { color: rgba(255,255,255,.68); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .prob-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .prob-stat { background: rgba(255,255,255,.05); padding: 26px 22px; transition: background .2s; }
+    .prob-stat:hover { background: rgba(255,255,255,.09); }
+    .prob-num { font-size: 40px; font-weight: 700; color: white; line-height: 1; margin-bottom: 8px; }
+    .prob-num em { color: var(--ms-teal); font-style: normal; }
+    .prob-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.55; }
+
+    /* ── PLATFORM ── */
+    .platform { background: white; }
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--ms-gray-30);
+      border: 1px solid var(--ms-gray-30); border-radius: var(--rl); overflow: hidden;
+      margin-top: 48px;
+    }
+    .feat {
+      background: white; padding: 28px 24px; transition: background .15s; position: relative;
+    }
+    .feat:hover { background: var(--ms-blue-10); }
+    .feat-icon {
+      width: 40px; height: 40px; border-radius: var(--r);
+      background: var(--ms-blue-10); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .feat-icon svg { width: 22px; height: 22px; fill: var(--ms-blue); }
+    .feat-title { font-size: 15px; font-weight: 600; color: var(--ms-gray-150); margin-bottom: 8px; }
+    .feat-desc { font-size: 13px; color: var(--ms-gray-90); line-height: 1.6; }
+    .feat-tag {
+      display: inline-block; margin-top: 12px;
+      background: var(--ms-blue-20); color: var(--ms-blue-dark);
+      font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px;
+    }
+
+    /* ── ECOSYSTEM ── */
+    .ecosystem { background: var(--ms-gray-10); }
+    .eco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .eco-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .eco-card {
+      background: white; border: 1px solid var(--ms-gray-30); border-radius: var(--rl);
+      padding: 18px; box-shadow: var(--shadow-4); transition: all .2s;
+    }
+    .eco-card:hover { box-shadow: var(--shadow-8); transform: translateY(-2px); border-color: var(--ms-blue); }
+    .eco-logo {
+      width: 36px; height: 36px; border-radius: 6px; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eco-name { font-size: 13px; font-weight: 600; color: var(--ms-gray-150); margin-bottom: 4px; }
+    .eco-desc { font-size: 12px; color: var(--ms-gray-90); line-height: 1.5; }
+    .eco-status { display: inline-block; margin-top: 9px; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: .4px; }
+    .live { background: #DFF6DD; color: #107C10; }
+    .next { background: var(--ms-blue-10); color: var(--ms-blue); }
+    .road { background: var(--ms-gray-20); color: var(--ms-gray-90); }
+
+    /* ── PILOT ── */
+    .pilot { background: white; }
+    .pilot-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; align-items: start; }
+    .pilot-card { background: var(--ms-gray-10); border: 1px solid var(--ms-gray-30); border-radius: var(--rl); overflow: hidden; }
+    .pilot-head { background: var(--ms-blue); padding: 18px 22px; display: flex; align-items: center; gap: 12px; }
+    .pilot-head-icon { width: 32px; height: 32px; background: rgba(255,255,255,.2); border-radius: var(--r); display: flex; align-items: center; justify-content: center; }
+    .pilot-head-icon svg { width: 18px; height: 18px; fill: white; }
+    .pilot-head-text h3 { font-size: 14px; font-weight: 600; color: white; }
+    .pilot-head-text p { font-size: 12px; color: rgba(255,255,255,.75); }
+    .pilot-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .p-stat { padding: 20px 16px; border-right: 1px solid var(--ms-gray-30); border-bottom: 1px solid var(--ms-gray-30); }
+    .p-stat:last-child { border-right: none; }
+    .p-stat-num { font-size: 26px; font-weight: 700; color: var(--ms-blue); line-height: 1; margin-bottom: 3px; }
+    .p-stat-lbl { font-size: 11px; color: var(--ms-gray-90); font-weight: 500; }
+    .pilot-tags { padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .ptag { background: white; border: 1px solid var(--ms-gray-40); border-radius: 100px; padding: 3px 10px; font-size: 11px; color: var(--ms-gray-90); }
+    .quote { margin-top: 28px; padding-left: 18px; border-left: 3px solid var(--ms-blue); }
+    .quote p { font-size: 17px; font-style: italic; color: var(--ms-gray-150); line-height: 1.65; margin-bottom: 10px; }
+    .quote cite { font-size: 12px; color: var(--ms-gray-90); font-style: normal; font-weight: 500; }
+
+    /* Scale steps */
+    .steps { display: flex; flex-direction: column; gap: 18px; }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .step-active { background: var(--ms-blue); color: white; }
+    .step-next { background: transparent; border: 2px solid var(--ms-blue); color: var(--ms-blue); }
+    .step-future { background: transparent; border: 2px solid var(--ms-gray-40); color: var(--ms-gray-90); }
+    .step-title { font-size: 14px; font-weight: 600; color: var(--ms-gray-150); margin-bottom: 3px; }
+    .step-desc { font-size: 12.5px; color: var(--ms-gray-90); line-height: 1.5; }
+
+    /* ── ROADMAP ── */
+    .roadmap-bg { background: var(--ms-gray-10); }
+    .timeline {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 0; position: relative; margin-top: 56px;
+    }
+    .timeline::before {
+      content: ''; position: absolute;
+      top: 27px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(to right, var(--ms-blue), var(--ms-teal));
+    }
+    .t-item { display: flex; flex-direction: column; align-items: center; padding: 0 8px; }
+    .t-dot {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; position: relative; z-index: 1;
+      margin-bottom: 18px; transition: all .2s;
+    }
+    .t-dot.now { background: var(--ms-blue); color: white; border: 3px solid var(--ms-blue); box-shadow: 0 0 0 6px rgba(0,120,212,.15); }
+    .t-dot.near { background: white; color: var(--ms-blue); border: 2px solid var(--ms-blue); }
+    .t-dot.far { background: white; color: var(--ms-gray-90); border: 2px solid var(--ms-gray-40); }
+    .t-year { font-size: 12px; font-weight: 700; color: var(--ms-gray-150); margin-bottom: 5px; }
+    .t-title { font-size: 13px; font-weight: 600; color: var(--ms-gray-100); margin-bottom: 6px; text-align: center; }
+    .t-desc { font-size: 11.5px; color: var(--ms-gray-90); text-align: center; line-height: 1.55; }
+
+    /* ── PARTNERSHIP ── */
+    .partnership {
+      background: linear-gradient(140deg, #001535 0%, #003576 40%, #0078D4 100%);
+      text-align: center;
+    }
+    .partnership .label { color: var(--ms-teal); }
+    .partnership .title { color: white; }
+    .partnership .sub { color: rgba(255,255,255,.72); max-width: 580px; margin: 0 auto 40px; }
+    .p-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .p-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--rl); padding: 24px; text-align: left;
+      transition: background .2s;
+    }
+    .p-card:hover { background: rgba(255,255,255,.14); }
+    .p-card-icon { font-size: 26px; margin-bottom: 12px; }
+    .p-card-title { font-size: 15px; font-weight: 600; color: white; margin-bottom: 8px; }
+    .p-card-desc { font-size: 13px; color: rgba(255,255,255,.68); line-height: 1.6; }
+    .p-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ms-gray-150); padding: 48px 24px 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .foot-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .foot-brand-box { width: 28px; height: 28px; background: var(--ms-blue); border-radius: var(--r); }
+    .foot-brand-name { font-size: 15px; font-weight: 600; color: white; }
+    .foot-tagline { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.6; margin-bottom: 16px; }
+    .foot-col-title { font-size: 11px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
+    .foot-link { display: block; color: rgba(255,255,255,.55); text-decoration: none; font-size: 13px; margin-bottom: 8px; transition: color .12s; }
+    .foot-link:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .foot-copy { font-size: 11.5px; color: rgba(255,255,255,.4); }
+    .foot-links { display: flex; gap: 20px; }
+    .foot-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: 11.5px; transition: color .12s; }
+    .foot-links a:hover { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .eco-grid { grid-template-columns: 1fr; }
+      .pilot-grid { grid-template-columns: 1fr; }
+      .p-cards { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr; gap: 20px; }
+      .timeline::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .ms-strip-inner { gap: 14px; }
+      .prob-stats { grid-template-columns: 1fr; }
+      .eco-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-box">
+        <!-- leaf/brain icon -->
+        <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20c9 0 10-8 10-8-1.7 0-2.5.7-3.67 1.4C14.85 11.4 15.9 8 17 8z"/></svg>
+      </div>
+      <span class="nav-logo-text">GaiaThinker</span>
+    </a>
+    <a class="nav-link" href="#platform">Platform</a>
+    <a class="nav-link" href="#ecosystem">Microsoft</a>
+    <a class="nav-link" href="#pilot">Pilot</a>
+    <a class="nav-link" href="#roadmap">Roadmap</a>
+    <a class="nav-link" href="#partners">Partners</a>
+    <div class="nav-spacer"></div>
+    <a class="nav-btn" href="#partners">Request Partnership</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        BC Autumn 2026 Pilot &mdash; New Westminster SD40
+      </div>
+      <h1>AI that teaches Gen Z<br>to <em>think in systems</em></h1>
+      <p class="hero-sub">GaiaThinker delivers curriculum-aligned, gamified AI tutoring for climate literacy &mdash; built on Microsoft Azure and designed to live inside the Microsoft Education ecosystem.</p>
+      <div class="hero-actions">
+        <a href="#partners" class="btn btn-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Request Partnership
+        </a>
+        <a href="#platform" class="btn btn-ghost-white">See the Platform &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Panel -->
+    <div class="hero-panel">
+      <div class="panel-bar">
+        <div class="panel-dot" style="background:#ff5f57"></div>
+        <div class="panel-dot" style="background:#febc2e"></div>
+        <div class="panel-dot" style="background:#28c840"></div>
+        <span class="panel-label">GaiaThinker &middot; Professor Ember &middot; Azure OpenAI</span>
+      </div>
+      <div class="panel-body">
+        <div class="stat-grid">
+          <div class="stat-tile"><div class="stat-num">94<span style="font-size:16px">%</span></div><div class="stat-lbl">Engagement Rate</div></div>
+          <div class="stat-tile"><div class="stat-num">3.2<span style="font-size:16px">×</span></div><div class="stat-lbl">vs. Textbook Retention</div></div>
+          <div class="stat-tile"><div class="stat-num">17</div><div class="stat-lbl">Climate Concepts</div></div>
+          <div class="stat-tile"><div class="stat-num" style="font-size:20px">BC Cur.</div><div class="stat-lbl">Curriculum Aligned</div></div>
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-row">
+            <div class="chat-avatar" style="background:rgba(0,120,212,.3)">🌍</div>
+            <div class="chat-bubble">Why do buildings cause 54% of New Westminster's emissions?</div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-avatar" style="background:rgba(0,178,148,.3)">🔥</div>
+            <div id="ember-reply">
+              <div class="typing"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MICROSOFT STRIP ══ -->
+<div class="ms-strip">
+  <div class="ms-strip-inner">
+    <span class="strip-label">Built for the Microsoft ecosystem</span>
+    <div class="strip-divider"></div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#0078D4"/><path d="M13.5 5L7 18h3.5l1-2.5H17l1 2.5H21L14.5 5h-1zm0 3.5l2 5h-4l2-5z" fill="white"/></svg>
+      Azure AI Services
+    </div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#6264A7"/><path d="M8 8h8v1H8V8zm0 3h8v1H8v-1zm0 3h5v1H8v-1zm9-6v10H7V8h10zm1-1H6v12h12V7z" fill="white"/></svg>
+      Microsoft Teams
+    </div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#217346"/><path d="M5 5h14v14H5V5zm2 2v10h10V7H7zm2 2h6v1H9V9zm0 3h6v1H9v-1zm0 3h4v1H9v-1z" fill="white"/></svg>
+      M365 Education
+    </div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#0F6CBD"/><circle cx="12" cy="9" r="3" fill="white"/><path d="M12 13c-3.3 0-5 1.7-5 3v1h10v-1c0-1.3-1.7-3-5-3z" fill="white"/></svg>
+      Copilot for Education
+    </div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#742774"/><path d="M12 3l-9 4v6c0 5 3.6 10 9 12 5.4-2 9-7 9-12V7l-9-4z" fill="none" stroke="white" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      Azure AD / Entra ID
+    </div>
+    <div class="ms-badge">
+      <svg class="badge-icon" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#C43E1C"/><rect x="5" y="5" width="6" height="6" rx="1" fill="white"/><rect x="13" y="5" width="6" height="6" rx="1" fill="white"/><rect x="5" y="13" width="6" height="6" rx="1" fill="white"/><rect x="13" y="13" width="6" height="6" rx="1" fill="white"/></svg>
+      Power Platform
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem">
+  <div class="sec">
+    <div class="problem-grid">
+      <div>
+        <div class="label">The Crisis We&rsquo;re Solving</div>
+        <h2 class="title">Gen Z is drowning in content.<br>Starving for understanding.</h2>
+        <p class="sub">The average Canadian teenager consumes 7+ hours of screen content daily &mdash; yet climate literacy scores are declining. Short-form video has rewired attention. Traditional curriculum can&rsquo;t compete. GaiaThinker is built for this reality.</p>
+      </div>
+      <div class="prob-stats">
+        <div class="prob-stat">
+          <div class="prob-num">7<em>hrs</em></div>
+          <div class="prob-desc">Average daily screen time for Canadian teens &mdash; mostly passive, zero-depth consumption</div>
+        </div>
+        <div class="prob-stat">
+          <div class="prob-num">68<em>%</em></div>
+          <div class="prob-desc">Of Gen Z call climate change their top concern &mdash; yet most can&rsquo;t explain the greenhouse effect</div>
+        </div>
+        <div class="prob-stat">
+          <div class="prob-num">2.4<em>&times;</em></div>
+          <div class="prob-desc">Higher dropout in traditional e-learning vs. gamified AI-tutored environments</div>
+        </div>
+        <div class="prob-stat">
+          <div class="prob-num"><em>2030</em></div>
+          <div class="prob-desc">BC&rsquo;s net-zero target. Today&rsquo;s students will vote on the policies that get us there</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PLATFORM ══ -->
+<section class="platform" id="platform">
+  <div class="sec">
+    <div class="center">
+      <div class="label">The Platform</div>
+      <h2 class="title">One platform. Every learning style.</h2>
+      <p class="sub" style="max-width:580px">GaiaThinker combines Azure-powered AI tutoring, gamification, and place-based curriculum into a coherent experience that meets BC Ministry of Education standards.</p>
+    </div>
+    <div class="feature-grid">
+      <!-- 1 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg></div>
+        <div class="feat-title">Interactive Climate Explorer</div>
+        <div class="feat-desc">17 place-based cards across causes, impacts, and solutions &mdash; grounded in New Westminster&rsquo;s real Seven Bold Steps emissions data and city policy.</div>
+        <span class="feat-tag">BC Curriculum Aligned</span>
+      </div>
+      <!-- 2 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div>
+        <div class="feat-title">Professor Ember &mdash; AI Tutor</div>
+        <div class="feat-desc">Azure OpenAI&ndash;powered. Ember answers student questions in real time, adapts to grade level, and surfaces misconceptions to educators via the dashboard.</div>
+        <span class="feat-tag">Azure OpenAI</span>
+      </div>
+      <!-- 3 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+        <div class="feat-title">Gamified Assessment</div>
+        <div class="feat-desc">Students sort real BC climate scenarios as cause, impact, or solution &mdash; briefing a virtual City Council under time pressure, building streaks and earning points.</div>
+        <span class="feat-tag">Engagement Engine</span>
+      </div>
+      <!-- 4 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></div>
+        <div class="feat-title">Educator Dashboard</div>
+        <div class="feat-desc">Real-time completion tracking, misconception flags, and formative assessment data &mdash; integrated with Microsoft Teams and accessible from any M365 device.</div>
+        <span class="feat-tag">Teams Integration</span>
+      </div>
+      <!-- 5 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></div>
+        <div class="feat-title">AI Climate Music Generator</div>
+        <div class="feat-desc">Students generate original music that sonifies BC climate data &mdash; a cross-curricular hook connecting science, arts, and deep emotional engagement with the material.</div>
+        <span class="feat-tag">Creative AI</span>
+      </div>
+      <!-- 6 -->
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+        <div class="feat-title">District Team Challenge</div>
+        <div class="feat-desc">City-vs-city climate competitions that drive engagement beyond the single classroom &mdash; scalable to district, provincial, and national levels via Azure infrastructure.</div>
+        <span class="feat-tag">District Scale</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ECOSYSTEM ══ -->
+<section class="ecosystem" id="ecosystem">
+  <div class="sec">
+    <div class="eco-grid">
+      <div>
+        <div class="label">Microsoft Ecosystem</div>
+        <h2 class="title">Designed for<br>Microsoft Cloud for Education</h2>
+        <p class="sub" style="margin-bottom:28px">Every architectural decision was made with the Microsoft education ecosystem in mind &mdash; from Azure AI infrastructure to Teams assignment integration, SSO via Entra ID, and Power BI district analytics.</p>
+        <a href="#partners" class="btn btn-blue" style="font-size:14px;padding:10px 20px;">Explore Integration Roadmap &rarr;</a>
+      </div>
+      <div class="eco-cards">
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#0078D4"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M13.5 5L7 18h3.5l1-2.5H17l1 2.5H21L14.5 5h-1zm0 3.5l2 5h-4l2-5z"/></svg></div>
+          <div class="eco-name">Azure OpenAI Service</div>
+          <div class="eco-desc">Professor Ember runs on GPT-4o via Azure OpenAI &mdash; PIPEDA-compliant, Canadian data residency.</div>
+          <span class="eco-status live">&#9679; Live</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#6264A7"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 8h8v1H8V8zm0 3h8v1H8v-1zm0 3h5v1H8v-1zm9-6v10H7V8h10zm1-1H6v12h12V7z"/></svg></div>
+          <div class="eco-name">Microsoft Teams</div>
+          <div class="eco-desc">Lessons assigned via Teams Assignments. Results feed directly into the educator gradebook.</div>
+          <span class="eco-status next">&#9675; Q1 2027</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#0F6CBD"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="9" r="3"/><path d="M12 13c-3.3 0-5 1.7-5 3v1h10v-1c0-1.3-1.7-3-5-3z"/></svg></div>
+          <div class="eco-name">Microsoft Copilot</div>
+          <div class="eco-desc">Educators generate lesson extensions, differentiated materials, and parent reports with Copilot.</div>
+          <span class="eco-status next">&#9675; Q2 2027</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#217346"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M5 5h14v14H5V5zm2 2v10h10V7H7zm2 2h6v1H9V9zm0 3h6v1H9v-1zm0 3h4v1H9v-1z"/></svg></div>
+          <div class="eco-name">Power BI Analytics</div>
+          <div class="eco-desc">District-level climate literacy dashboards &mdash; track progress across every school in real time.</div>
+          <span class="eco-status road">&#9711; 2028 Roadmap</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#742774"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l-9 4v6c0 5 3.6 10 9 12 5.4-2 9-7 9-12V7l-9-4z" stroke="white" stroke-width="1.5" fill="none"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="eco-name">Azure AD / Entra ID</div>
+          <div class="eco-desc">Single sign-on via existing school Microsoft accounts. Zero new credentials for students or staff.</div>
+          <span class="eco-status next">&#9675; Q1 2027</span>
+        </div>
+        <div class="eco-card">
+          <div class="eco-logo" style="background:#C43E1C"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></div>
+          <div class="eco-name">Power Platform</div>
+          <div class="eco-desc">Automated district workflows, custom connectors, and low-code educator tools via Power Automate.</div>
+          <span class="eco-status road">&#9711; 2028 Roadmap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PILOT ══ -->
+<section class="pilot" id="pilot">
+  <div class="sec">
+    <div class="pilot-grid">
+      <div>
+        <div class="label">Proof of Concept</div>
+        <h2 class="title">BC Pilot &mdash; Autumn 2026</h2>
+        <p class="sub" style="margin-bottom:28px">GaiaThinker launches with New Westminster School District (SD40) &mdash; one of BC&rsquo;s most innovative districts and an early adopter of AI in education. The pilot generates the replicable evidence base for provincial and national scale.</p>
+        <div class="pilot-card">
+          <div class="pilot-head">
+            <div class="pilot-head-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div class="pilot-head-text">
+              <h3>New Westminster School District &middot; SD40</h3>
+              <p>British Columbia, Canada &middot; Autumn 2026</p>
+            </div>
+          </div>
+          <div class="pilot-stats">
+            <div class="p-stat"><div class="p-stat-num">500+</div><div class="p-stat-lbl">Students</div></div>
+            <div class="p-stat"><div class="p-stat-num">Gr.&nbsp;9–12</div><div class="p-stat-lbl">Grade Range</div></div>
+            <div class="p-stat"><div class="p-stat-num">6</div><div class="p-stat-lbl">Curriculum Courses</div></div>
+          </div>
+          <div class="pilot-tags">
+            <span class="ptag">Science 9 &amp; 10</span>
+            <span class="ptag">Environmental Science 11 &amp; 12</span>
+            <span class="ptag">Earth Sciences 11</span>
+            <span class="ptag">Social Studies 10</span>
+            <span class="ptag">First Peoples Principles</span>
+          </div>
+        </div>
+        <div class="quote">
+          <p>&ldquo;The students in classrooms today will make the decisions that determine whether we hit net-zero by 2030. They deserve tools built for how they actually learn.&rdquo;</p>
+          <cite>&mdash; Ali Farshadfard, Founder, GaiaLink Intelligence Systems</cite>
+        </div>
+      </div>
+      <div>
+        <div class="label">Scale Path</div>
+        <h2 class="title" style="font-size:24px">From one district to a national standard</h2>
+        <p class="sub" style="font-size:14px;margin-bottom:24px">The SD40 pilot is engineered to generate replicable evidence &mdash; the same data package that triggers Ministry adoption and advances GaiaThinker&rsquo;s Microsoft Education partnership tier.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num step-active">1</div>
+            <div><div class="step-title">SD40 Pilot &mdash; Autumn 2026</div><div class="step-desc">500 students. Outcome data. Educator feedback. IRB-ready evidence package for provincial submission.</div></div>
+          </div>
+          <div class="step">
+            <div class="step-num step-next">2</div>
+            <div><div class="step-title">BC Province-Wide &mdash; 2027</div><div class="step-desc">Ministry of Education alignment. 5 districts. Microsoft Teams integration live. Copilot for educators.</div></div>
+          </div>
+          <div class="step">
+            <div class="step-num step-future">3</div>
+            <div><div class="step-title">National &mdash; 2028&ndash;2029</div><div class="step-desc">Pan-Canadian curriculum modules. Power BI dashboards. Microsoft Marketplace listing. 100K+ students.</div></div>
+          </div>
+          <div class="step">
+            <div class="step-num step-future">4</div>
+            <div><div class="step-title">Global &mdash; 2030</div><div class="step-desc">English-speaking markets via Microsoft Global Education partners. Azure multi-region deployment.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section class="roadmap-bg" id="roadmap">
+  <div class="sec">
+    <div class="center">
+      <div class="label">5-Year Vision</div>
+      <h2 class="title">From BC pilot to global standard</h2>
+      <p class="sub" style="max-width:560px">Each milestone advances GaiaThinker&rsquo;s position in the Microsoft Education partner tier &mdash; from ISV to co-sell to preferred partner.</p>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-dot now">2026</div>
+        <div class="t-year"></div>
+        <div class="t-title">BC Pilot Launch</div>
+        <div class="t-desc">SD40 &middot; 500 students<br>Azure OpenAI live<br>Outcome data collection</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot near">2027</div>
+        <div class="t-year"></div>
+        <div class="t-title">Provincial Scale</div>
+        <div class="t-desc">5 BC districts<br>Teams + SSO<br>Copilot for educators<br>Ministry alignment</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot far">2028</div>
+        <div class="t-year"></div>
+        <div class="t-title">National Platform</div>
+        <div class="t-desc">Pan-Canadian modules<br>Power BI dashboards<br>MS Marketplace listing</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot far">2029</div>
+        <div class="t-year"></div>
+        <div class="t-title">Enterprise EdTech</div>
+        <div class="t-desc">District contracts<br>API licensing<br>MS co-sell program<br>100K+ students</div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot far">2030</div>
+        <div class="t-year"></div>
+        <div class="t-title">Global Deployment</div>
+        <div class="t-desc">English-speaking markets<br>Azure multi-region<br>MS Global Education partner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERSHIP ══ -->
+<section class="partnership" id="partners">
+  <div class="sec">
+    <div class="label">Partnership Opportunities</div>
+    <h2 class="title">Build the future of climate education with us</h2>
+    <p class="sub">GaiaThinker is actively seeking Microsoft ecosystem partners, school districts, and impact investors aligned with our mission of making the next generation climate-literate.</p>
+    <div class="p-cards">
+      <div class="p-card">
+        <div class="p-card-icon">🏢</div>
+        <div class="p-card-title">Microsoft Partnership</div>
+        <div class="p-card-desc">Co-develop on Azure AI. Feature in the Microsoft Education Marketplace. Access the co-sell pipeline. Joint go-to-market with Microsoft Canada Education team.</div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-icon">🏫</div>
+        <div class="p-card-title">School Districts</div>
+        <div class="p-card-desc">Join the BC pilot cohort. Receive free access through Autumn 2026. Shape the product roadmap. Co-author the evidence base for provincial Ministry adoption.</div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-icon">💡</div>
+        <div class="p-card-title">Impact Investors</div>
+        <div class="p-card-desc">Seed-stage opportunity. Proven BC curriculum alignment. Microsoft-ready infrastructure. Scalable SaaS targeting the $2B+ K&ndash;12 EdTech market.</div>
+      </div>
+    </div>
+    <div class="p-actions">
+      <a href="mailto:ali@gaiasystems.ca" class="btn btn-white">Request a Meeting &rarr;</a>
+      <a href="https://gaiasystems.ca" target="_blank" class="btn btn-outline-white">Visit GaiaLink Systems &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="foot-brand-box"></div>
+          <span class="foot-brand-name">GaiaThinker</span>
+        </div>
+        <p class="foot-tagline">AI-powered climate literacy for the next generation &mdash; built on Microsoft Azure, designed for BC and beyond.</p>
+        <p style="font-size:11px;color:rgba(255,255,255,.3)">A product of GaiaLink Intelligence Systems Inc.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Platform</div>
+        <a class="foot-link" href="#platform">Climate Explorer</a>
+        <a class="foot-link" href="#platform">Professor Ember</a>
+        <a class="foot-link" href="#platform">Game Mode</a>
+        <a class="foot-link" href="#platform">Educator Dashboard</a>
+        <a class="foot-link" href="#platform">Team Challenge</a>
+      </div>
+      <div>
+        <div class="foot-col-title">Company</div>
+        <a class="foot-link" href="https://gaiasystems.ca" target="_blank">GaiaLink Systems</a>
+        <a class="foot-link" href="#pilot">BC Pilot</a>
+        <a class="foot-link" href="#roadmap">5-Year Roadmap</a>
+        <a class="foot-link" href="#partners">Partners</a>
+      </div>
+      <div>
+        <div class="foot-col-title">Connect</div>
+        <a class="foot-link" href="mailto:ali@gaiasystems.ca">ali@gaiasystems.ca</a>
+        <a class="foot-link" href="https://gaiasystems.ca" target="_blank">gaiasystems.ca</a>
+        <a class="foot-link" href="#partners">Request Demo</a>
+        <a class="foot-link" href="https://gaiathinker.gaiasystems.ca" target="_blank">Live Demo Site</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. All rights reserved. GaiaThinker&trade;</span>
+      <div class="foot-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Ember reply animation
+  setTimeout(() => {
+    const el = document.getElementById('ember-reply');
+    if (el) {
+      el.innerHTML = '<div class="chat-bubble ember" style="font-size:12.5px;line-height:1.5">Buildings use natural gas for heating &amp; hot water, releasing CO&#x2082; directly. At 54% of total city emissions, they\'re New West\'s biggest climate challenge — and why heat pump adoption is Bold Step #1.</div>';
+    }
+  }, 3500);
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Fade-in on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.feat, .eco-card, .p-card, .t-item, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>

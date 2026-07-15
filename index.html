@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GaiaThinker — AI Climate Literacy for BC Schools</title>
+  <meta name="description" content="GaiaThinker turns climate education into civic decision-making for BC Grades 9–12. Built on Microsoft Azure OpenAI. FIPPA-aligned. No student accounts required."/>
+  <meta property="og:title" content="GaiaThinker — AI Climate Literacy for BC Schools"/>
+  <meta property="og:description" content="AI-powered climate literacy for BC Grades 9–12. Azure OpenAI. FIPPA-aligned. No student accounts."/>
+  <meta property="og:url" content="https://gaiathinker.ca"/>
+  <meta property="og:type" content="website"/>
+  <style>
+    /* ── FLUENT DESIGN TOKENS ── */
+    :root {
+      --ms-blue:       #0078D4;
+      --ms-blue-dk:    #005A9E;
+      --ms-blue-dkr:   #004578;
+      --ms-blue-lt:    #EFF6FC;
+      --ms-blue-20:    #DEECF9;
+      --ms-teal:       #00B294;
+      --ms-teal-dk:    #008272;
+      --ms-green:      #107C10;
+      --ms-green-lt:   #DFF6DD;
+      --ms-neutral-dk: #201F1E;
+      --ms-neutral-90: #323130;
+      --ms-neutral-60: #605E5C;
+      --ms-neutral-40: #A19F9D;
+      --ms-neutral-20: #F3F2F1;
+      --ms-neutral-10: #FAF9F8;
+      --ms-neutral-30: #EDEBE9;
+      --ms-white:      #FFFFFF;
+      /* Fluent elevation */
+      --e2:  0 1.6px 3.6px rgba(0,0,0,.132), 0 .3px .9px rgba(0,0,0,.108);
+      --e4:  0 3.2px 7.2px rgba(0,0,0,.132), 0 .6px 1.8px rgba(0,0,0,.108);
+      --e8:  0 6.4px 14.4px rgba(0,0,0,.132), 0 1.2px 3.6px rgba(0,0,0,.108);
+      --e16: 0 12.8px 28.8px rgba(0,0,0,.132), 0 2.4px 7.2px rgba(0,0,0,.108);
+      /* Fluent radius */
+      --r-sm: 2px;
+      --r:    4px;
+      --r-md: 6px;
+      --r-lg: 8px;
+      --font: 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--ms-neutral-90);
+      background: var(--ms-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─────────────────── NAV (Fluent Acrylic) ─────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      height: 48px; display: flex; align-items: center; padding: 0 24px;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--ms-neutral-30);
+      box-shadow: var(--e2);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
+    .logo-name .gaia { font-weight: 300; color: var(--ms-teal); }
+    .logo-name .gt   { font-weight: 700; color: var(--ms-neutral-dk); }
+    .logo-name { font-size: 15px; font-weight: 600; color: var(--ms-neutral-dk); letter-spacing: -.2px; }
+    .nav-space { flex: 1; }
+    .nav-links { display: flex; gap: 4px; align-items: center; }
+    .nav-link {
+      font-size: 13px; color: var(--ms-neutral-60); text-decoration: none;
+      padding: 5px 12px; border-radius: var(--r); transition: background .1s, color .1s;
+    }
+    .nav-link:hover { background: var(--ms-neutral-20); color: var(--ms-neutral-dk); }
+    .nav-btn {
+      background: var(--ms-blue); color: white; border: none; border-radius: var(--r);
+      padding: 6px 18px; font-size: 13px; font-weight: 600; cursor: pointer;
+      text-decoration: none; font-family: var(--font); transition: background .12s;
+      display: inline-flex; align-items: center;
+    }
+    .nav-btn:hover { background: var(--ms-blue-dk); }
+
+    /* ─────────────────── HERO ─────────────────── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 48px 24px 0; position: relative; overflow: hidden;
+      background: linear-gradient(150deg, #001030 0%, #002970 32%, #0060B0 68%, #0078D4 88%, #00A090 100%);
+    }
+    /* Fluent grid overlay */
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    /* Radial teal glow */
+    .hero::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 50% 65% at 78% 52%, rgba(0,178,148,.22) 0%, transparent 65%);
+    }
+    .hero-inner {
+      max-width: 740px; margin: 0 auto; width: 100%;
+      padding: 108px 0 88px; position: relative; z-index: 1; text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+      border-radius: 100px; padding: 5px 18px;
+      font-size: 12px; color: rgba(255,255,255,.9); font-weight: 500;
+      margin-bottom: 32px; backdrop-filter: blur(10px); letter-spacing: .3px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; background: var(--ms-teal);
+      border-radius: 50%; animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.8)} }
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 62px); font-weight: 700; color: white;
+      line-height: 1.07; letter-spacing: -1.5px; margin-bottom: 24px;
+    }
+    .hero h1 em { color: var(--ms-teal); font-style: normal; }
+    .hero-sub {
+      font-size: clamp(16px, 2.2vw, 19px); color: rgba(255,255,255,.72);
+      line-height: 1.65; margin-bottom: 44px; max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--r); padding: 13px 28px; font-size: 15px; font-weight: 600;
+      cursor: pointer; text-decoration: none; font-family: var(--font);
+      transition: all .15s; border: none; letter-spacing: -.1px;
+    }
+    .btn-primary { background: white; color: var(--ms-blue); }
+    .btn-primary:hover { background: #f0f4f9; box-shadow: var(--e8); transform: translateY(-1px); }
+    .btn-ghost {
+      background: rgba(255,255,255,.1); color: white;
+      border: 1.5px solid rgba(255,255,255,.38); backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.65); }
+
+    /* Trust strip */
+    .trust-strip {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 32px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 28px; flex-wrap: wrap;
+    }
+    .ts-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,.6); font-weight: 500; }
+    .ts-icon { width: 16px; height: 16px; fill: rgba(255,255,255,.55); flex-shrink: 0; }
+
+    /* ─────────────────── SECTION SHELL ─────────────────── */
+    .sec { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-size: 11px; font-weight: 700; color: var(--ms-teal);
+      text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: clamp(26px, 4vw, 42px); font-weight: 700;
+      line-height: 1.12; letter-spacing: -.5px; margin-bottom: 18px;
+    }
+    .sec-body { font-size: 16px; line-height: 1.72; }
+
+    /* ─────────────────── PROBLEM ─────────────────── */
+    .problem { background: var(--ms-neutral-dk); padding: 100px 24px; }
+    .problem .sec-label { color: var(--ms-teal); }
+    .problem .sec-title { color: white; }
+    .problem .sec-body { color: rgba(255,255,255,.65); }
+
+    .prob-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+    .prob-text p + p { margin-top: 16px; }
+
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: var(--r-lg); overflow: hidden; }
+    .stat {
+      background: rgba(255,255,255,.05);
+      padding: 30px 24px; transition: background .2s;
+    }
+    .stat:hover { background: rgba(255,255,255,.09); }
+    .stat-n { font-size: 44px; font-weight: 700; color: white; line-height: 1; margin-bottom: 10px; }
+    .stat-n em { color: var(--ms-teal); font-style: normal; }
+    .stat-d { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+    /* ─────────────────── SOLUTION ─────────────────── */
+    .solution { background: white; padding: 100px 24px; }
+    .solution .sec-label { color: var(--ms-blue); }
+    .solution .sec-title { color: var(--ms-neutral-dk); }
+    .solution .sec-body { color: var(--ms-neutral-60); }
+    .sol-header { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+
+    .pillars {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+      background: var(--ms-neutral-30); border: 1px solid var(--ms-neutral-30);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .pillar {
+      background: white; padding: 34px 28px; transition: background .15s;
+      display: flex; flex-direction: column;
+    }
+    .pillar:hover { background: var(--ms-blue-lt); }
+    .pillar-step {
+      font-size: 10.5px; font-weight: 700; color: var(--ms-blue);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px;
+    }
+    .pillar-icon {
+      width: 44px; height: 44px; border-radius: var(--r); background: var(--ms-blue-lt);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px; flex-shrink: 0;
+    }
+    .pillar-icon svg { width: 24px; height: 24px; fill: var(--ms-blue); }
+    .pillar-title { font-size: 17px; font-weight: 600; color: var(--ms-neutral-dk); margin-bottom: 10px; }
+    .pillar-body { font-size: 14px; color: var(--ms-neutral-60); line-height: 1.68; flex: 1; }
+
+    /* How it works strip */
+    .how { background: var(--ms-neutral-10); padding: 80px 24px; border-top: 1px solid var(--ms-neutral-30); }
+    .how .sec-label { color: var(--ms-neutral-60); }
+    .how .sec-title { color: var(--ms-neutral-dk); }
+    .how-header { text-align: center; max-width: 560px; margin: 0 auto 48px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .step {
+      background: white; border: 1px solid var(--ms-neutral-30);
+      border-radius: var(--r-lg); padding: 26px 22px;
+      box-shadow: var(--e2); transition: box-shadow .2s, transform .2s;
+    }
+    .step:hover { box-shadow: var(--e4); transform: translateY(-2px); }
+    .step-num { font-size: 10.5px; font-weight: 700; color: var(--ms-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--ms-neutral-dk); margin-bottom: 8px; }
+    .step-body { font-size: 13.5px; color: var(--ms-neutral-60); line-height: 1.62; margin-bottom: 14px; }
+    .step-chip {
+      display: inline-block; background: var(--ms-blue-20); color: var(--ms-blue-dk);
+      font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: var(--r-sm);
+      text-transform: uppercase; letter-spacing: .4px;
+    }
+
+    /* MS Ecosystem strip */
+    .ecosystem {
+      background: white; padding: 56px 24px;
+      border-top: 1px solid var(--ms-neutral-30); border-bottom: 1px solid var(--ms-neutral-30);
+    }
+    .eco-label {
+      text-align: center; font-size: 11px; font-weight: 700; color: var(--ms-neutral-40);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 32px;
+    }
+    .eco-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .eco-card {
+      background: var(--ms-neutral-10); border: 1px solid var(--ms-neutral-30);
+      border-radius: var(--r-lg); padding: 18px 16px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .eco-card:hover { border-color: var(--ms-blue); box-shadow: var(--e2); }
+    .eco-logo {
+      width: 34px; height: 34px; border-radius: var(--r); margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eco-name { font-size: 13px; font-weight: 600; color: var(--ms-neutral-dk); margin-bottom: 4px; }
+    .eco-desc { font-size: 12px; color: var(--ms-neutral-60); line-height: 1.5; margin-bottom: 10px; }
+    .badge-live { display:inline-block; background:var(--ms-green-lt); color:var(--ms-green); font-size:10px; font-weight:700; padding:2px 8px; border-radius:var(--r-sm); text-transform:uppercase; letter-spacing:.4px; }
+    .badge-soon { display:inline-block; background:var(--ms-blue-lt); color:var(--ms-blue); font-size:10px; font-weight:700; padding:2px 8px; border-radius:var(--r-sm); text-transform:uppercase; letter-spacing:.4px; }
+
+    /* ─────────────────── CONTACT FORM ─────────────────── */
+    .contact {
+      background: linear-gradient(148deg, #001535 0%, #00306E 42%, #0060B0 78%, #0078D4 100%);
+      padding: 100px 24px; position: relative; overflow: hidden;
+    }
+    .contact::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .contact::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 55% 70% at 85% 30%, rgba(0,178,148,.15) 0%, transparent 65%);
+    }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+    }
+
+    /* left panel */
+    .contact-copy .sec-label { color: var(--ms-teal); }
+    .contact-copy .sec-title { color: white; margin-bottom: 20px; }
+    .contact-copy .sec-body { color: rgba(255,255,255,.68); margin-bottom: 40px; }
+
+    .contact-checks { display: flex; flex-direction: column; gap: 14px; }
+    .contact-check { display: flex; align-items: flex-start; gap: 12px; }
+    .check-icon {
+      width: 20px; height: 20px; background: rgba(0,178,148,.2);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .check-icon svg { width: 11px; height: 11px; fill: var(--ms-teal); }
+    .check-text { font-size: 14px; color: rgba(255,255,255,.72); line-height: 1.55; }
+    .check-text strong { color: white; font-weight: 600; }
+
+    /* form panel */
+    .form-card {
+      background: white; border-radius: var(--r-lg);
+      padding: 40px 36px; box-shadow: var(--e16);
+    }
+    .form-card h3 {
+      font-size: 20px; font-weight: 600; color: var(--ms-neutral-dk);
+      margin-bottom: 6px; letter-spacing: -.2px;
+    }
+    .form-card .form-sub {
+      font-size: 13px; color: var(--ms-neutral-60); margin-bottom: 28px; line-height: 1.5;
+    }
+
+    .form-row { margin-bottom: 18px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    label {
+      display: block; font-size: 12px; font-weight: 600; color: var(--ms-neutral-dk);
+      margin-bottom: 5px; letter-spacing: .1px;
+    }
+    label .req { color: var(--ms-blue); margin-left: 2px; }
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%; border: 1px solid var(--ms-neutral-30);
+      border-radius: var(--r); padding: 9px 12px;
+      font-size: 14px; font-family: var(--font); color: var(--ms-neutral-dk);
+      background: white; transition: border-color .15s, box-shadow .15s;
+      appearance: none; -webkit-appearance: none;
+      outline: none;
+    }
+    input[type="text"]:hover, input[type="email"]:hover, select:hover, textarea:hover {
+      border-color: var(--ms-neutral-60);
+    }
+    input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+      border-color: var(--ms-blue);
+      box-shadow: 0 0 0 1px var(--ms-blue);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23605E5C' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+      padding-right: 32px; cursor: pointer;
+    }
+    textarea { resize: vertical; min-height: 88px; }
+    .form-privacy {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 12px; color: var(--ms-neutral-60); line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .form-privacy a { color: var(--ms-blue); text-decoration: none; }
+    .form-privacy a:hover { text-decoration: underline; }
+    input[type="checkbox"] { width: 14px; height: 14px; margin-top: 1px; flex-shrink: 0; accent-color: var(--ms-blue); cursor: pointer; }
+
+    .form-submit {
+      width: 100%; background: var(--ms-blue); color: white; border: none;
+      border-radius: var(--r); padding: 13px; font-size: 15px; font-weight: 600;
+      cursor: pointer; font-family: var(--font); transition: background .12s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { background: var(--ms-blue-dk); }
+    .form-submit:focus { outline: 2px solid var(--ms-blue); outline-offset: 2px; }
+    .form-submit svg { width: 16px; height: 16px; fill: white; }
+
+    /* success state */
+    .form-success {
+      display: none; text-align: center; padding: 32px 16px;
+    }
+    .success-icon {
+      width: 56px; height: 56px; background: var(--ms-green-lt); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    }
+    .success-icon svg { width: 28px; height: 28px; fill: var(--ms-green); }
+    .form-success h4 { font-size: 18px; font-weight: 600; color: var(--ms-neutral-dk); margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: var(--ms-neutral-60); line-height: 1.6; }
+    .form-success .email-confirm { color: var(--ms-blue); font-weight: 600; }
+
+    /* ─────────────────── FOOTER ─────────────────── */
+    footer { background: var(--ms-neutral-dk); padding: 44px 24px 24px; }
+    .foot-inner { max-width: 1100px; margin: 0 auto; }
+    .foot-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 28px; margin-bottom: 36px; padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .foot-brand { display: flex; flex-direction: column; gap: 10px; }
+    .foot-logo { display: flex; align-items: center; gap: 9px; }
+    .foot-logo-box { display: flex; align-items: center; }
+    .foot-logo-name { font-size: 14px; color: white; letter-spacing: -.1px; }
+    .foot-logo-name .gaia   { font-weight: 300; color: #00B294; }
+    .foot-logo-name .gt     { font-weight: 700; }
+    .foot-tagline { font-size: 12px; color: rgba(255,255,255,.35); max-width: 200px; line-height: 1.5; }
+    .foot-nav { display: flex; gap: 48px; flex-wrap: wrap; }
+    .foot-col { display: flex; flex-direction: column; gap: 10px; }
+    .foot-col-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 2px; }
+    .foot-col a { font-size: 13px; color: rgba(255,255,255,.5); text-decoration: none; transition: color .12s; }
+    .foot-col a:hover { color: white; }
+    .foot-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .foot-copy { font-size: 11.5px; color: rgba(255,255,255,.3); }
+    .foot-legal { display: flex; gap: 16px; }
+    .foot-legal a { font-size: 11.5px; color: rgba(255,255,255,.28); text-decoration: none; transition: color .12s; }
+    .foot-legal a:hover { color: rgba(255,255,255,.7); }
+
+    /* ─────────────────── ANIMATIONS ─────────────────── */
+    .fade { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade-d1 { transition-delay: .1s; }
+    .fade-d2 { transition-delay: .2s; }
+
+    /* ─────────────────── RESPONSIVE ─────────────────── */
+    @media (max-width: 960px) {
+      .prob-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .eco-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .pillars { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 540px) {
+      .eco-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .trust-strip { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">
+        <svg width="30" height="30" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="nav-grad" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00B294"/>
+              <stop offset="100%" stop-color="#0078D4"/>
+            </linearGradient>
+          </defs>
+          <path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#nav-grad)"/>
+          <line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
+          <line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
+          <line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+          <line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+          <circle cx="17" cy="18" r="2.8" fill="white" opacity=".95"/>
+          <circle cx="39" cy="18" r="2.8" fill="white" opacity=".95"/>
+          <circle cx="28" cy="14" r="2.8" fill="white" opacity=".95"/>
+          <circle cx="28" cy="30" r="3.2" fill="white"/>
+        </svg>
+      </div>
+      <span class="logo-name"><span class="gaia">Gaia</span><span class="gt">Thinker</span></span>
+    </a>
+    <div class="nav-space"></div>
+    <div class="nav-links">
+      <a class="nav-link" href="#problem">The Problem</a>
+      <a class="nav-link" href="#solution">Solution</a>
+      <a class="nav-link" href="/educators">Educators</a>
+    </div>
+    <a class="nav-btn" href="#contact">Contact Us</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-dot"></div>
+      British Columbia &middot; Autumn 2026 Pilot &middot; Powered by Azure OpenAI
+    </div>
+
+    <h1>The next generation will<br>decide the <em>climate future.</em><br>Right now, they can't explain<br>the greenhouse effect.</h1>
+
+    <p class="hero-sub">GaiaThinker transforms climate education for BC Grades&nbsp;9&ndash;12 — turning passive learners into active civic decision-makers through AI tutoring, real provincial data, and gamified problem-solving.</p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Contact Us
+      </a>
+      <a href="#solution" class="btn btn-ghost">See How It Works &rarr;</a>
+    </div>
+
+    <div class="trust-strip">
+      <div class="ts-item">
+        <svg class="ts-icon" viewBox="0 0 24 24"><path d="M13.5 5L7 18h3.5l1-2.5H17l1 2.5H21L14.5 5h-1zm0 3.5l2 5h-4l2-5z"/></svg>
+        Azure OpenAI Service
+      </div>
+      <div class="ts-item">
+        <svg class="ts-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        FIPPA &amp; PIPEDA Aligned
+      </div>
+      <div class="ts-item">
+        <svg class="ts-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Canadian Data Residency
+      </div>
+      <div class="ts-item">
+        <svg class="ts-icon" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        BC Ministry Curriculum
+      </div>
+      <div class="ts-item">
+        <svg class="ts-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        No Student Accounts
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem" id="problem">
+  <div class="sec">
+    <div class="prob-layout">
+      <div class="fade">
+        <div class="sec-label">The Problem</div>
+        <h2 class="sec-title">Climate curriculum is failing the students who need it most.</h2>
+        <p class="sec-body">Most climate education presents the crisis without the agency. Students absorb statistics about a problem they didn't create and can't yet influence — producing anxiety, not understanding.</p>
+        <p class="sec-body" style="margin-top:16px">British Columbia's net-zero commitments, clean energy targets, and land-use decisions will be made by the generation sitting in today's classrooms. They are not being prepared.</p>
+      </div>
+      <div class="stat-grid fade fade-d1">
+        <div class="stat">
+          <div class="stat-n">68<em>%</em></div>
+          <div class="stat-d">Of BC Gen Z identify climate change as their top concern — fewer than 1 in 3 can explain the carbon cycle</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">7<em>hrs</em></div>
+          <div class="stat-d">Average daily screen time for Canadian teens — most of it passive, none building systems thinking</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">2.4<em>&times;</em></div>
+          <div class="stat-d">Higher completion rate in gamified AI-tutored learning vs. traditional digital curriculum</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n"><em>2030</em></div>
+          <div class="stat-d">BC's net-zero milestone. Students in Grade 9 today will be eligible voters the year it arrives</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOLUTION ══ -->
+<section class="solution" id="solution">
+  <div class="sec">
+    <div class="sol-header fade">
+      <div class="sec-label">The Solution</div>
+      <h2 class="sec-title">From passive learners to climate decision-makers.</h2>
+      <p class="sec-body">GaiaThinker replaces abstract curriculum with British Columbia's own climate data, positions students as policymakers, and uses AI to build the critical thinking that persists long after the lesson ends.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar fade">
+        <div class="pillar-step">01 — Investigate</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.44 4.56 16.94 4.07 14H6v-2H4.07C4.56 9.06 7.06 6.56 10 6.07V8h2V6.07c2.94.49 5.44 2.99 5.93 5.93H16v2h1.93c-.49 2.94-2.99 5.44-5.93 5.93z"/></svg>
+        </div>
+        <div class="pillar-title">Real BC Climate Data</div>
+        <div class="pillar-body">Students explore British Columbia's actual emissions sources, local climate impacts, and provincial policy decisions — grounded in the places and ecosystems they know. Not global abstractions.</div>
+      </div>
+      <div class="pillar fade fade-d1">
+        <div class="pillar-step">02 — Decide</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        </div>
+        <div class="pillar-title">Gamified Civic Action</div>
+        <div class="pillar-body">Students classify climate scenarios, build streaks, and brief a simulated provincial body — moving from passive observer to active decision-maker. Every session ends with a recommendation, not a summary.</div>
+      </div>
+      <div class="pillar fade fade-d2">
+        <div class="pillar-step">03 — Think</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+        </div>
+        <div class="pillar-title">Professor Ember — AI Tutor</div>
+        <div class="pillar-body">Powered by Azure OpenAI. Ember uses Socratic questioning — never giving answers, always building reasoning. Students are challenged to evaluate evidence before conclusions are confirmed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how">
+  <div class="sec">
+    <div class="how-header fade">
+      <div class="sec-label">How It Works</div>
+      <h2 class="sec-title">One session. Three phases. Lasting understanding.</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade">
+        <div class="step-num">Phase 01</div>
+        <div class="step-title">Climate Explorer</div>
+        <div class="step-body">Students work through cause, impact, and solution cards tied to British Columbia's real emissions data. Each card surfaces a local decision point, not a global abstraction.</div>
+        <span class="step-chip">Science &amp; Social Studies</span>
+      </div>
+      <div class="step fade fade-d1">
+        <div class="step-num">Phase 02</div>
+        <div class="step-title">The Civic Briefing</div>
+        <div class="step-body">Students classify live BC scenarios and brief a simulated provincial body under time pressure. Instant feedback. Streak mechanics. Real stakes.</div>
+        <span class="step-chip">Critical Thinking</span>
+      </div>
+      <div class="step fade fade-d2">
+        <div class="step-num">Phase 03</div>
+        <div class="step-title">AI Dialogue with Ember</div>
+        <div class="step-body">Professor Ember engages each student in directed Socratic conversation. No answers given — only the right question at the right moment. FIPPA-compliant by design.</div>
+        <span class="step-chip">Azure OpenAI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MICROSOFT ECOSYSTEM ══ -->
+<section class="ecosystem">
+  <div class="sec">
+    <div class="eco-label fade">Built for the Microsoft Education Ecosystem</div>
+    <div class="eco-grid">
+      <div class="eco-card fade">
+        <div class="eco-logo" style="background:#0078D4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M13.5 5L7 18h3.5l1-2.5H17l1 2.5H21L14.5 5h-1zm0 3.5l2 5h-4l2-5z"/></svg>
+        </div>
+        <div class="eco-name">Azure OpenAI</div>
+        <div class="eco-desc">Canadian data residency. Microsoft Responsible AI principles. GPT-4o inference.</div>
+        <span class="badge-live">&#9679; Live</span>
+      </div>
+      <div class="eco-card fade fade-d1">
+        <div class="eco-logo" style="background:#6264A7">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 8h8v1H8V8zm0 3h8v1H8v-1zm0 3h5v1H8v-1zm9-6v10H7V8h10zm1-1H6v12h12V7z"/></svg>
+        </div>
+        <div class="eco-name">Microsoft Teams</div>
+        <div class="eco-desc">Lessons assignable via Teams Assignments. Results flow to the educator gradebook.</div>
+        <span class="badge-soon">&#9675; Q1 2027</span>
+      </div>
+      <div class="eco-card fade fade-d1">
+        <div class="eco-logo" style="background:#0F6CBD">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="9" r="3"/><path d="M12 13c-3.3 0-5 1.7-5 3v1h10v-1c0-1.3-1.7-3-5-3z"/></svg>
+        </div>
+        <div class="eco-name">Entra ID SSO</div>
+        <div class="eco-desc">Single sign-on via existing school Microsoft accounts. Zero new credentials.</div>
+        <span class="badge-soon">&#9675; Q1 2027</span>
+      </div>
+      <div class="eco-card fade fade-d2">
+        <div class="eco-logo" style="background:#742774">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="white"/><rect x="13" y="3" width="8" height="8" rx="1" fill="white" opacity=".6"/><rect x="3" y="13" width="8" height="8" rx="1" fill="white" opacity=".6"/><rect x="13" y="13" width="8" height="8" rx="1" fill="white" opacity=".3"/></svg>
+        </div>
+        <div class="eco-name">Power BI</div>
+        <div class="eco-desc">District-level analytics and progress dashboards embedded for administrators.</div>
+        <span class="badge-soon">&#9675; 2028</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT FORM ══ -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+
+    <!-- LEFT: Copy -->
+    <div class="contact-copy fade">
+      <div class="sec-label">Contact Us</div>
+      <h2 class="sec-title">Ready to bring GaiaThinker to your school?</h2>
+      <p class="sec-body">Whether you're a teacher, administrator, or district coordinator — we'll get back to you within one business day.</p>
+
+      <div class="contact-checks">
+        <div class="contact-check">
+          <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="check-text"><strong>No budget required for evaluation.</strong> Access for pilot schools is free.</div>
+        </div>
+        <div class="contact-check">
+          <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="check-text"><strong>No IT setup.</strong> Runs in any browser. No infrastructure required.</div>
+        </div>
+        <div class="contact-check">
+          <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="check-text"><strong>FIPPA-compliant.</strong> No student accounts, no personal data collected.</div>
+        </div>
+        <div class="contact-check">
+          <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="check-text"><strong>DPA support included.</strong> We'll assist with your district's procurement process.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="fade fade-d1">
+      <div class="form-card">
+        <h3>Get in touch</h3>
+        <p class="form-sub">Fill in your details and we'll reach out with next steps for your school or district.</p>
+
+        <!-- Web3Forms — replace YOUR_ACCESS_KEY with your key from web3forms.com -->
+        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="9ea820d9-ad9d-4b4e-bd99-d4ba54a936d6"/>
+          <input type="hidden" name="subject" value="GaiaThinker — New Contact Request"/>
+          <input type="hidden" name="from_name" value="GaiaThinker Website"/>
+          <input type="hidden" name="redirect" value="false"/>
+          <!-- Honeypot spam protection -->
+          <input type="checkbox" name="botcheck" style="display:none"/>
+
+          <div class="form-row-2">
+            <div>
+              <label for="fname">First name <span class="req">*</span></label>
+              <input type="text" id="fname" name="first_name" placeholder="First" required/>
+            </div>
+            <div>
+              <label for="lname">Last name <span class="req">*</span></label>
+              <input type="text" id="lname" name="last_name" placeholder="Last" required/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="email">Professional email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@school.bc.ca" required/>
+          </div>
+
+          <div class="form-row-2">
+            <div>
+              <label for="role">Your role <span class="req">*</span></label>
+              <select id="role" name="role" required>
+                <option value="" disabled selected>Select role</option>
+                <option>Teacher</option>
+                <option>Department Head</option>
+                <option>Vice Principal / Principal</option>
+                <option>District Administrator</option>
+                <option>IT / Technology Coordinator</option>
+                <option>Curriculum Coordinator</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="school">School or district</label>
+              <input type="text" id="school" name="school" placeholder="e.g. School District 40"/>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="message">How can we help? <span style="color:var(--ms-neutral-40);font-weight:400">(optional)</span></label>
+            <textarea id="message" name="message" placeholder="Tell us about your school's needs, timeline, or any questions you have about the pilot program..."></textarea>
+          </div>
+
+          <div class="form-privacy">
+            <input type="checkbox" id="consent" name="consent" required/>
+            <label for="consent" style="margin-bottom:0;font-weight:400;cursor:pointer">
+              I agree to GaiaThinker's <a href="/privacy">Privacy Policy</a>. No student data is collected or shared.
+            </label>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            Send Message
+          </button>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <h4>Message received.</h4>
+          <p>We'll reach out to <span class="email-confirm" id="confirmedEmail"></span><br>within one business day.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="foot-logo">
+          <div class="foot-logo-box">
+            <svg width="26" height="26" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="ft-grad" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#00B294"/>
+                  <stop offset="100%" stop-color="#4FC3E8"/>
+                </linearGradient>
+              </defs>
+              <path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#ft-grad)"/>
+              <line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="17" cy="18" r="2.8" fill="white"/>
+              <circle cx="39" cy="18" r="2.8" fill="white"/>
+              <circle cx="28" cy="14" r="2.8" fill="white"/>
+              <circle cx="28" cy="30" r="3.2" fill="white"/>
+            </svg>
+          </div>
+          <span class="foot-logo-name"><span class="gaia">Gaia</span><span class="gt">Thinker</span></span>
+        </div>
+        <div class="foot-tagline">AI climate literacy for BC Grades 9–12. Powered by Azure OpenAI.</div>
+      </div>
+      <div class="foot-nav">
+        <div class="foot-col">
+          <div class="foot-col-label">Product</div>
+          <a href="#solution">Solution</a>
+          <a href="#problem">The Problem</a>
+          <a href="/educators">For Educators</a>
+          <a href="/districts">For Districts</a>
+        </div>
+        <div class="foot-col">
+          <div class="foot-col-label">Company</div>
+          <a href="/about">About GaiaLink</a>
+          <a href="/insights">Insights</a>
+          <a href="https://gaiasystems.ca" target="_blank" rel="noopener">GaiaLink Systems</a>
+        </div>
+        <div class="foot-col">
+          <div class="foot-col-label">Legal</div>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms &amp; Conditions</a>
+          <a href="/accessibility">Accessibility</a>
+        </div>
+        <div class="foot-col">
+          <div class="foot-col-label">Contact</div>
+          <a href="mailto:ali.reza.farshadfard@gaiasystems.ca">Email us</a>
+          <a href="/support">Support</a>
+          <a href="#contact">Request Access</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. All rights reserved. GaiaThinker&trade; is a trademark of GaiaLink Intelligence Systems Inc.</span>
+      <div class="foot-legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/accessibility">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Form submission via Web3Forms
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('submitBtn');
+  const success = document.getElementById('formSuccess');
+  const emailConfirm = document.getElementById('confirmedEmail');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Basic validation
+    const email = document.getElementById('email').value;
+    const consent = document.getElementById('consent').checked;
+    if (!consent) {
+      document.getElementById('consent').focus();
+      return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="animation:spin .8s linear infinite"><path d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z"/></svg> Sending…`;
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        form.style.display = 'none';
+        emailConfirm.textContent = email;
+        success.style.display = 'block';
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="white" style="width:16px;height:16px"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Send Message`;
+      alert('Something went wrong. Please email us directly at ali.reza.farshadfard@gaiasystems.ca');
+    }
+  });
+</script>
+
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+</body>
+</html>

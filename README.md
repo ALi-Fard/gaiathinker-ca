@@ -2,6 +2,13 @@
 
 > AI-powered climate literacy for the next generation of decision-makers.
 
+[![Deployed on Cloudflare Pages](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020?style=flat&logo=cloudflare&logoColor=white)](https://gaiathinker.ca)
+[![Built with Azure OpenAI](https://img.shields.io/badge/Powered%20by-Azure%20OpenAI-0078D4?style=flat&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-ca/products/ai-services/openai-service)
+[![FIPPA Compliant](https://img.shields.io/badge/Privacy-FIPPA%20%2F%20PIPEDA-107C10?style=flat)](https://gaiathinker.ca/privacy)
+[![Canadian Data Residency](https://img.shields.io/badge/Data%20Residency-Canada-red?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiIvPjwvc3ZnPg==)](https://gaiathinker.ca)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-323130?style=flat)](./LICENSE.md)
+
+---
 
 ## What Is GaiaThinker?
 
@@ -10,6 +17,7 @@ GaiaThinker is a Microsoft Azure-powered climate literacy platform built for **B
 **No student accounts. No student emails. No personal data stored.**  
 Canadian data residency. FIPPA-aligned. First Peoples Principles of Learning integrated.
 
+---
 
 ## The Problem We're Solving
 
@@ -17,6 +25,7 @@ British Columbia's revised curriculum mandates climate literacy across Grades 9�
 
 GaiaThinker closes that gap.
 
+---
 
 ## Core Product
 
@@ -42,9 +51,11 @@ GaiaThinker closes that gap.
 | **Analytics (roadmap)** | Microsoft Power BI Embedded |
 | **Collaboration (roadmap)** | Microsoft Teams integration |
 
+---
 
 ## Repository Structure
 
+```
 gaiathinker-ca/
 │
 ├── index.html              # / — Public landing page
@@ -67,7 +78,9 @@ gaiathinker-ca/
 │
 ├── LICENSE.md
 └── README.md
+```
 
+---
 
 ## Deployment
 
@@ -93,6 +106,7 @@ npx serve .
 
 Open `http://localhost:8080` in your browser.
 
+---
 
 ## Privacy Architecture
 
@@ -105,6 +119,8 @@ GaiaThinker is built privacy-first by design:
 - **FIPPA / PIPEDA compliant** — designed for BC public school procurement
 
 Full policy: [gaiathinker.ca/privacy](https://gaiathinker.ca/privacy)
+
+---
 
 ## Microsoft Ecosystem Alignment
 
@@ -120,6 +136,8 @@ Full policy: [gaiathinker.ca/privacy](https://gaiathinker.ca/privacy)
 
 GaiaThinker is listed on **Microsoft AppSource** as "GaiaThinker Pilot Offer 2026" under GaiaLink Intelligence Systems Inc.
 
+---
+
 ## BC Pilot Program
 
 The inaugural GaiaThinker pilot launches **Autumn 2026** across participating British Columbia school districts. Pilot scope:
@@ -131,6 +149,7 @@ The inaugural GaiaThinker pilot launches **Autumn 2026** across participating Br
 
 To apply for the pilot: [gaiathinker.ca/districts](https://gaiathinker.ca/districts)
 
+---
 
 ## Roadmap
 
@@ -142,6 +161,7 @@ To apply for the pilot: [gaiathinker.ca/districts](https://gaiathinker.ca/distri
 2030  International ────────────────────────────────── IB curriculum · EU AI Act
 ```
 
+---
 
 ## Contributing
 
@@ -154,6 +174,7 @@ If you are a contractor or advisor with repository access, please:
 3. Open a pull request with a clear description — no direct pushes to `main`
 4. All content changes must be reviewed before deployment
 
+---
 
 ## Contact
 
