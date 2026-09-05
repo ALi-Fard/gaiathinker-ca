@@ -12,7 +12,7 @@
 
 ## What Is GaiaThinker?
 
-GaiaThinker is a Microsoft Azure-powered climate literacy platform built for **BC Grades 9–12** schools. It delivers curriculum-aligned lessons, AI-guided scenario exploration, and formative assessment tools — all without creating student accounts or storing personal data.
+GaiaThinker is a Microsoft Azure-powered climate literacy platform originally built for BC Grades 9–12 schools, with an inaugural pilot in New Westminster, BC, and a roadmap for adoption across Canada, the US, UK, and Europe. It delivers curriculum-aligned lessons, AI-guided scenario exploration, and formative assessment tools — all without creating student accounts or storing personal data.
 
 **No student accounts. No student emails. No personal data stored.**  
 Canadian data residency. FIPPA-aligned. First Peoples Principles of Learning integrated.
