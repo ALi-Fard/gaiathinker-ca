@@ -1,6 +1,6 @@
 // POST /api/chat — "Ask Ember", the Green AI Bingo game guide.
-// Stateless: messages are forwarded to Azure OpenAI (Canadian region) and never stored.
-import { json, originAllowed, readJson, clean, azureChat } from '../_lib/common.js';
+// Stateless: messages are forwarded to Claude (Anthropic API) and never stored.
+import { json, originAllowed, readJson, clean, claudeChat } from '../lib/common.js';
 
 const MAX_MSGS = 8;        // conversation window sent to the model
 const MAX_CHARS = 500;     // per user message
@@ -53,7 +53,7 @@ export async function onRequestPost({ request, env }) {
   const progress = `Player progress (not personal data): ${Math.max(0, Math.min(25, Number(ctx.marked) || 0))}/25 squares, ${Math.max(0, Math.min(12, Number(ctx.lines) || 0))} GREEN lines.`;
 
   try {
-    const reply = await azureChat(env, [{ role: 'system', content: SYSTEM + '\n\n' + progress }, ...msgs], { maxTokens: 220, temperature: 0.3 });
+    const reply = await claudeChat(env, [{ role: 'system', content: SYSTEM + '\n\n' + progress }, ...msgs], { maxTokens: 220, temperature: 0.3 });
     return json({ reply: reply.slice(0, 1200) });
   } catch (e) {
     const notConfigured = String(e.message).includes('not_configured');

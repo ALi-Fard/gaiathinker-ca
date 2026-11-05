@@ -1,0 +1,18 @@
+{
+  // Cloudflare Worker for gaiathinker.ca: static site + /api/* (Green AI Bingo).
+  // "name" must match the Worker's name in the Cloudflare dashboard.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gaiathinker-ca",
+  "main": "src/index.js",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    // Only /api/* runs the Worker code; every other request is served straight from static assets.
+    "run_worker_first": ["/api/*"]
+  },
+  // Keep variables and secrets set in the dashboard (Settings → Variables and Secrets) on every deploy.
+  "keep_vars": true,
+  "observability": { "enabled": true }
+}
