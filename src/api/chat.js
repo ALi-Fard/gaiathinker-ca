@@ -56,6 +56,7 @@ export async function onRequestPost({ request, env }) {
     const reply = await claudeChat(env, [{ role: 'system', content: SYSTEM + '\n\n' + progress }, ...msgs], { maxTokens: 220, temperature: 0.3 });
     return json({ reply: reply.slice(0, 1200) });
   } catch (e) {
+    console.error('chat_failed', String(e && e.message));
     const notConfigured = String(e.message).includes('not_configured');
     return json({ error: notConfigured ? 'unavailable' : 'upstream' }, 503);
   }
