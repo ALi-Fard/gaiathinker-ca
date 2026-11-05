@@ -1,0 +1,13 @@
+# Not served as static files
+.git
+.github
+.wrangler
+.dev.vars
+node_modules
+src
+wrangler.jsonc
+wrangler.toml
+package.json
+package-lock.json
+.assetsignore
+.gitignore

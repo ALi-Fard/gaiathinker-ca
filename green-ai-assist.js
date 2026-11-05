@@ -62,11 +62,11 @@ function buildChat() {
   ]);
   const panel = el('section', { class: 'ember-panel', id: 'emberPanel', role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'emberTitle', hidden: true }, [
     el('header', { class: 'ember-head' }, [
-      el('div', null, [el('div', { class: 'ember-title', id: 'emberTitle', text: 'Ember · game guide' }), el('div', { class: 'ember-sub', text: 'Small AI model · short answers, on purpose' })]),
+      el('div', null, [el('div', { class: 'ember-title', id: 'emberTitle', text: 'Ember · game guide' }), el('div', { class: 'ember-sub', text: 'Powered by Claude (small model) · short answers, on purpose' })]),
       el('button', { type: 'button', class: 'ember-x', 'aria-label': 'Close chat', onclick: () => toggleChat(false) }, ['×'])
     ]),
     log, chips, form,
-    el('p', { class: 'ember-note' }, ['Please don’t share personal information. Typed questions go to our AI service in Canada and aren’t stored. ', el('a', { href: '/privacy#green-ai-bingo', text: 'Privacy' })])
+    el('p', { class: 'ember-note' }, ['Ember is an AI and can make mistakes. Don’t share personal information. Typed questions are answered by Claude (Anthropic, US) and aren’t stored by us. ', el('a', { href: '/privacy#green-ai-bingo', text: 'Privacy' })])
   ]);
   panel.addEventListener('keydown', e => { if (e.key === 'Escape') toggleChat(false); });
   document.body.append(launcher, panel);
@@ -189,12 +189,19 @@ function renderResults() {
 }
 
 // ---------- email form ----------
-const SITE_KEY = (document.querySelector('meta[name="gab-turnstile-sitekey"]') || {}).content || '';
+// Turnstile site key: meta tag if set, otherwise Cloudflare env via /api/config (same pattern as gaiasystems.ca).
+const META_KEY = (document.querySelector('meta[name="gab-turnstile-sitekey"]') || {}).content || '';
+let siteKeyP = null;
+function getSiteKey() {
+  if (!siteKeyP) siteKeyP = META_KEY ? Promise.resolve(META_KEY) : fetch('/api/config', { credentials: 'omit' })
+    .then(r => r.ok ? r.json() : {}).then(j => (j && j.email && j.turnstileSiteKey) || '').catch(() => '');
+  return siteKeyP;
+}
 let tsToken = '', tsWidget = null;
 
-function loadTurnstile(container) {
-  if (!SITE_KEY) return;
-  const render = () => { try { tsWidget = window.turnstile.render(container, { sitekey: SITE_KEY, theme: 'light', callback: t => { tsToken = t; }, 'expired-callback': () => { tsToken = ''; } }); } catch (e) {} };
+function loadTurnstile(container, siteKey) {
+  if (!siteKey) return;
+  const render = () => { try { tsWidget = window.turnstile.render(container, { sitekey: siteKey, theme: 'light', callback: t => { tsToken = t; }, 'expired-callback': () => { tsToken = ''; } }); } catch (e) {} };
   if (window.turnstile) return render();
   window.__gabTs = render;
   const s = document.createElement('script');
@@ -211,10 +218,14 @@ function buildEmailForm() {
   const wrap = el('div', { class: 'af', id: 'assessEmail' });
   wrap.append(el('h3', { class: 'ar-h', text: 'Email me the full report' }),
     el('p', { class: 'af-intro', text: 'Get a copy with your 90-day plan, every recommendation, and notes for your type of organization. For adults acting on behalf of an organization.' }));
-  if (!SITE_KEY) {
+  getSiteKey().then(key => {
+    if (key) { renderEmailForm(wrap, key); return; }
     wrap.append(el('p', { class: 'af-status', text: 'Emailed reports are being switched on. Your full results are shown above. Use your browser’s print option to save them as a PDF.' }));
-    return wrap;
-  }
+  });
+  return wrap;
+}
+
+function renderEmailForm(wrap, siteKey) {
   const orgSel = el('select', { name: 'orgType', required: true }, [el('option', { value: '', text: 'Choose…' }), ...ORG_TYPES.map(o => el('option', { value: o.id, text: o.label }))]);
   const roleSel = el('select', { name: 'role', required: true }, [el('option', { value: '', text: 'Choose…' }), ...ROLES.map(o => el('option', { value: o.id, text: o.label }))]);
   const ts = el('div', { class: 'af-ts' });
@@ -236,8 +247,7 @@ function buildEmailForm() {
   ]);
   form.addEventListener('submit', e => submitEmail(e, form, status));
   wrap.append(form);
-  loadTurnstile(ts);
-  return wrap;
+  loadTurnstile(ts, siteKey);
 }
 
 async function submitEmail(e, form, status) {
