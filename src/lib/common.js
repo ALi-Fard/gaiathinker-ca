@@ -75,7 +75,8 @@ export async function claudeChat(env, messages, { maxTokens = 220, temperature =
     const r = await fetch(env.ANTHROPIC_API_URL || 'https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: env.ANTHROPIC_MODEL || 'claude-haiku-5-5', max_tokens: maxTokens, temperature, system, messages: convo }),
+      // No `temperature`: current Claude models reject it.
+      body: JSON.stringify({ model: env.ANTHROPIC_MODEL || 'claude-haiku-5-5', max_tokens: maxTokens, system, messages: convo }),
       signal: ctrl.signal
     });
     if (!r.ok) {
