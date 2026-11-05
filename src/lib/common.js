@@ -78,7 +78,11 @@ export async function claudeChat(env, messages, { maxTokens = 220, temperature =
       body: JSON.stringify({ model: env.ANTHROPIC_MODEL || 'claude-haiku-5-5', max_tokens: maxTokens, temperature, system, messages: convo }),
       signal: ctrl.signal
     });
-    if (!r.ok) throw new Error('llm_http_' + r.status);
+    if (!r.ok) {
+      const detail = (await r.text().catch(() => '')).slice(0, 300);
+      console.error('claude_error', r.status, detail);
+      throw new Error('llm_http_' + r.status);
+    }
     const data = await r.json();
     const text = (data && Array.isArray(data.content) ? data.content : []).filter(b => b.type === 'text').map(b => b.text).join('');
     if (!text) throw new Error('llm_empty');
@@ -100,6 +104,9 @@ export async function sendEmail(env, { to, toName, subject, html, text, replyTo 
       headers: { 'List-Unsubscribe': `<mailto:${env.CONTACT_EMAIL || 'support@gaiasystems.ca'}?subject=unsubscribe>` }
     })
   });
-  if (!r.ok) throw new Error('email_http_' + r.status);
+  if (!r.ok) {
+    console.error('resend_error', r.status, (await r.text().catch(() => '')).slice(0, 300));
+    throw new Error('email_http_' + r.status);
+  }
   return true;
 }
