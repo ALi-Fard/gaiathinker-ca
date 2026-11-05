@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://challenges.cloudflare.com; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src https://challenges.cloudflare.com; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<!-- Cloudflare Turnstile site key (public). Leave empty to disable emailed reports. -->
+<meta name="gab-turnstile-sitekey" content=""/>
+<title>Green AI Bingo — Lower-Impact AI Habits | GaiaThinker</title>
+<meta name="description" content="A free climate game for BC Climate Action Week: 24 everyday habits that cut the energy and water behind your AI use. Prompt smarter, right-size the tool, skip wasteful media. No accounts, no tracking."/>
+<link rel="canonical" href="https://gaiathinker.ca/green-ai-bingo"/>
+<meta property="og:title" content="Green AI Bingo — Can you get a GREEN line?"/>
+<meta property="og:description" content="24 everyday habits that cut the energy behind your AI use. A free game from GaiaThinker for BC Climate Action Week."/>
+<meta property="og:url" content="https://gaiathinker.ca/green-ai-bingo"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="GaiaThinker"/>
+<meta property="og:image" content="https://gaiathinker.ca/green-ai-bingo-og.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Green AI Bingo by GaiaThinker — a 5 by 5 card of lower-impact AI habits"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Green AI Bingo — Can you get a GREEN line?"/>
+<meta name="twitter:description" content="24 everyday habits that cut the energy behind your AI use. Free, no accounts, no tracking."/>
+<meta name="twitter:image" content="https://gaiathinker.ca/green-ai-bingo-og.png"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Green AI Bingo","description":"An interactive bingo game teaching lower-impact AI habits: efficient prompting, right-sizing AI tools, and reducing generated media.","url":"https://gaiathinker.ca/green-ai-bingo","inLanguage":"en-CA","isAccessibleForFree":true,"educationalLevel":"Grades 6–12 and adult learners","learningResourceType":"Game","teaches":["Efficient prompting","AI energy use","Digital sustainability"],"publisher":{"@type":"Organization","name":"GaiaLink Intelligence Systems Inc.","url":"https://gaiathinker.ca"}}</script>
+<style>
+:root{--ms-blue:#0078D4;--ms-blue-dk:#005A9E;--ms-blue-lt:#EFF6FC;--ms-blue-20:#DEECF9;--ms-teal:#00B294;--ms-teal-dk:#00806A;--ms-green:#107C10;--ms-green-lt:#DFF6DD;--ms-neutral-dk:#201F1E;--ms-neutral-90:#323130;--ms-neutral-60:#605E5C;--ms-neutral-40:#A19F9D;--ms-neutral-30:#EDEBE9;--ms-neutral-20:#F3F2F1;--ms-neutral-10:#FAF9F8;--e2:0 1.6px 3.6px rgba(0,0,0,.132),0 .3px .9px rgba(0,0,0,.108);--e4:0 3.2px 7.2px rgba(0,0,0,.132),0 .6px 1.8px rgba(0,0,0,.108);--e16:0 6.4px 14.4px rgba(0,0,0,.132),0 1.2px 3.6px rgba(0,0,0,.108);--r:4px;--rl:8px;--font:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{font-family:var(--font);color:var(--ms-neutral-90);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:var(--ms-blue)}
+:focus-visible{outline:2px solid var(--ms-blue);outline-offset:2px}
+.skip{position:absolute;left:-9999px;top:8px;background:#fff;padding:8px 12px;z-index:1000;border-radius:var(--r)}
+.skip:focus{left:8px}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:48px;display:flex;align-items:center;padding:0 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--ms-neutral-30);box-shadow:var(--e2)}
+.nav-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-name{font-size:15px;letter-spacing:-.2px}.logo-name .g{font-weight:300;color:var(--ms-teal)}.logo-name .t{font-weight:700;color:var(--ms-neutral-dk)}
+.nav-space{flex:1}
+.nav-link{font-size:13px;color:var(--ms-neutral-60);text-decoration:none;padding:5px 12px;border-radius:var(--r)}
+.nav-link:hover,.nav-link.active{background:var(--ms-neutral-20);color:var(--ms-neutral-dk)}
+.nav-btn{background:var(--ms-blue);color:#fff;border-radius:var(--r);padding:6px 16px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-btn:hover{background:var(--ms-blue-dk)}
+@media(max-width:720px){.nav-link{display:none}}
+
+.page-hero{background:linear-gradient(135deg,#001535,#003070 50%,#0078D4);padding:84px 16px 48px;text-align:center;color:#fff}
+.eyebrow{font-size:11px;font-weight:700;color:var(--ms-teal);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+.page-hero .eyebrow{color:#5FE3C8}
+.page-hero h1{font-size:clamp(30px,6vw,52px);font-weight:700;letter-spacing:-.6px;margin-bottom:12px;line-height:1.1}
+.page-hero h1 span{color:#5FE3C8}
+.page-hero p{font-size:16px;color:rgba(255,255,255,.78);max-width:600px;margin:0 auto 24px;line-height:1.65}
+.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.9);font-weight:500}
+.chip svg{width:13px;height:13px;fill:#5FE3C8}
+.hero-cta{display:inline-flex;margin-top:24px;background:#fff;color:var(--ms-blue);font-weight:700;font-size:14px;padding:12px 26px;border-radius:var(--r);text-decoration:none}
+.hero-cta:hover{box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+.content{max-width:1100px;margin:0 auto;padding:48px 16px 72px}
+.sec{margin-bottom:72px;scroll-margin-top:64px}
+.sec-title{font-size:clamp(22px,3.5vw,34px);font-weight:700;color:var(--ms-neutral-dk);letter-spacing:-.4px;margin-bottom:8px}
+.sec-sub{font-size:15.5px;color:var(--ms-neutral-60);line-height:1.7;margin-bottom:28px;max-width:680px}
+
+/* ---------- how to play ---------- */
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.howto div{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:16px}
+.howto b{display:block;font-size:14px;color:var(--ms-neutral-dk);margin-bottom:4px}
+.howto span{font-size:13px;color:var(--ms-neutral-60)}
+@media(max-width:720px){.howto{grid-template-columns:1fr}}
+
+/* ---------- board ---------- */
+.game{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+@media(max-width:900px){.game{grid-template-columns:1fr}}
+.board-wrap{background:linear-gradient(160deg,#F2FBF8,#EFF6FC);border:1px solid var(--ms-neutral-30);border-radius:12px;padding:16px;box-shadow:var(--e4)}
+.board-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap}
+.board-top .t{font-weight:700;font-size:15px;color:var(--ms-neutral-dk)}
+.board-top .n{font-size:12px;color:var(--ms-neutral-60);font-variant-numeric:tabular-nums}
+.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.colhead{display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#00B294,#00806A);color:#fff;border-radius:6px;padding:6px 2px;text-align:center;min-height:56px}
+.colhead .l{font-size:clamp(20px,4vw,28px);font-weight:800;line-height:1}
+.colhead .c{font-size:clamp(8.5px,1.6vw,11px);font-weight:600;opacity:.92;line-height:1.15;margin-top:3px}
+.cell{position:relative;aspect-ratio:1/1;border:1.5px solid var(--ms-neutral-30);background:#fff;border-radius:6px;cursor:pointer;font:inherit;color:var(--ms-neutral-dk);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;text-align:center;transition:transform .12s,background .15s,border-color .15s;overflow:hidden}
+.cell:hover{border-color:var(--ms-blue);transform:translateY(-1px);box-shadow:var(--e4)}
+.cell .ic{font-size:clamp(16px,3.4vw,24px);line-height:1;margin-bottom:4px}
+.cell .lb{font-size:clamp(9.5px,1.85vw,13px);font-weight:600;line-height:1.2;hyphens:manual;overflow-wrap:anywhere}
+.cell[aria-pressed="true"]{background:var(--ms-green-lt);border-color:var(--ms-green)}
+.cell[aria-pressed="true"]::after{content:"";position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:var(--ms-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/12px no-repeat}
+.cell.free{background:linear-gradient(160deg,#0078D4,#00B294);color:#fff;border-color:transparent}
+.cell.free::after{display:none}
+.cell.free .tag{font-size:clamp(8px,1.5vw,10px);font-weight:800;letter-spacing:1px;opacity:.9;margin-top:3px}
+.cell.win{box-shadow:0 0 0 3px #FFB900 inset}
+.cell.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media(max-width:480px){.board{gap:4px}.board-wrap{padding:10px}.cell{padding:3px}.cell[aria-pressed="true"]::after{width:11px;height:11px;top:2px;right:2px;background-size:8px}.cell[aria-pressed="true"]{border-width:2px}}
+
+/* ---------- side panel ---------- */
+.panel{background:#fff;border:1px solid var(--ms-neutral-30);border-radius:12px;padding:18px;box-shadow:var(--e2);position:sticky;top:64px}
+@media(max-width:900px){.panel{position:static}}
+.score{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.score .big{font-size:40px;font-weight:800;color:var(--ms-neutral-dk);font-variant-numeric:tabular-nums;line-height:1}
+.score .of{font-size:14px;color:var(--ms-neutral-60)}
+.bar{height:8px;background:var(--ms-neutral-20);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#00B294,#107C10);border-radius:8px;transition:width .4s}
+.rank{font-size:13px;color:var(--ms-neutral-60);margin-bottom:4px}
+.rank b{color:var(--ms-green)}
+.lines{font-size:13px;color:var(--ms-neutral-60);margin-bottom:16px}
+.btns{display:grid;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:10px 14px;border-radius:var(--r);border:1px solid var(--ms-neutral-30);background:#fff;color:var(--ms-neutral-dk);cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--ms-neutral-20)}
+.btn.primary{background:var(--ms-blue);border-color:var(--ms-blue);color:#fff}
+.btn.primary:hover{background:var(--ms-blue-dk)}
+.btn.warn{border-color:#C50F1F;color:#C50F1F}
+.privacy-note{margin-top:14px;font-size:12px;color:var(--ms-neutral-60);line-height:1.55;display:flex;gap:8px}
+.privacy-note svg{flex:none;width:16px;height:16px;fill:var(--ms-teal);margin-top:1px}
+
+/* ---------- banner ---------- */
+.banner{display:none;margin-bottom:12px;padding:12px 14px;border-radius:var(--rl);background:#FFF4CE;border:1px solid #FFB900;color:#3B2E00;font-weight:600;font-size:14px}
+.banner.show{display:block}
+
+/* ---------- dialog ---------- */
+dialog{border:none;border-radius:12px;padding:0;max-width:520px;width:calc(100% - 32px);box-shadow:var(--e16);color:var(--ms-neutral-90)}
+dialog::backdrop{background:rgba(0,16,48,.55)}
+.dlg-head{background:linear-gradient(135deg,#003070,#0078D4);color:#fff;padding:18px 20px 16px;position:relative}
+.dlg-head .col{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5FE3C8}
+.dlg-head h3{font-size:20px;line-height:1.25;margin-top:4px;padding-right:32px}
+.dlg-x{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer}
+.dlg-x:hover{background:rgba(255,255,255,.3)}
+.dlg-body{padding:18px 20px 20px}
+.dlg-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ms-teal-dk);margin:0 0 4px}
+.dlg-body p{font-size:14.5px;line-height:1.6;margin-bottom:14px}
+.kind{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:.4px;margin-left:6px;vertical-align:middle}
+.kind.fact{background:var(--ms-blue-20);color:var(--ms-blue-dk)}
+.kind.how{background:var(--ms-neutral-20);color:var(--ms-neutral-60)}
+.src{font-size:12.5px;color:var(--ms-neutral-60);margin-bottom:16px}
+.dlg-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- quiz ---------- */
+.quiz{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:12px;padding:24px;max-width:760px}
+.q-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--ms-neutral-60);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.q-prompt{font-size:19px;font-weight:700;color:var(--ms-neutral-dk);margin-bottom:16px;line-height:1.35}
+.q-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:600px){.q-opts{grid-template-columns:1fr}}
+.q-opt{font:inherit;text-align:left;font-size:15px;padding:16px;border-radius:var(--rl);border:1.5px solid var(--ms-neutral-30);background:#fff;cursor:pointer;color:var(--ms-neutral-dk);line-height:1.4}
+.q-opt:hover:not(:disabled){border-color:var(--ms-blue)}
+.q-opt:disabled{cursor:default}
+.q-opt.right{border-color:var(--ms-green);background:var(--ms-green-lt)}
+.q-opt.wrong{border-color:#C50F1F;background:#FDE7E9}
+.q-feedback{font-size:14.5px;line-height:1.6;margin-bottom:14px;min-height:1px}
+.q-feedback b.ok{color:var(--ms-green)}
+.q-feedback b.no{color:#C50F1F}
+.q-end{text-align:center;padding:12px 0}
+.q-end .big{font-size:48px;font-weight:800;color:var(--ms-neutral-dk);line-height:1}
+.q-end .title{font-size:18px;font-weight:700;color:var(--ms-green);margin:8px 0 16px}
+
+/* ---------- follow-up calculator ---------- */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;align-items:start;background:#fff;border:1px solid var(--ms-neutral-30);border-radius:12px;padding:24px}
+@media(max-width:800px){.calc{grid-template-columns:1fr}}
+.calc label{font-weight:700;font-size:14px;color:var(--ms-neutral-dk);display:block;margin-bottom:8px}
+.calc input[type=range]{width:100%;accent-color:var(--ms-blue)}
+.calc .out{margin-top:16px;font-size:15px;line-height:1.6}
+.calc .out b{font-size:28px;color:var(--ms-neutral-dk);display:block;font-variant-numeric:tabular-nums}
+.bars{display:flex;align-items:flex-end;gap:4px;height:180px;border-bottom:1px solid var(--ms-neutral-30);padding-top:8px}
+.bars div{flex:1;background:linear-gradient(180deg,#0078D4,#00B294);border-radius:3px 3px 0 0;min-height:2px;transition:height .25s}
+.bars-cap{display:flex;justify-content:space-between;font-size:12px;color:var(--ms-neutral-60);margin-top:6px}
+.fine{font-size:12.5px;color:var(--ms-neutral-60);line-height:1.6;margin-top:14px}
+
+/* ---------- educators + sources ---------- */
+.edu{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.edu div{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:18px}
+.edu b{display:block;font-size:15px;color:var(--ms-neutral-dk);margin-bottom:6px}
+.edu p{font-size:13.5px;color:var(--ms-neutral-60);line-height:1.6}
+@media(max-width:800px){.edu{grid-template-columns:1fr}}
+.edu-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.srcs{font-size:13.5px;color:var(--ms-neutral-60);line-height:1.7;padding-left:20px}
+.srcs li{margin-bottom:6px}
+.note{background:var(--ms-blue-lt);border-left:3px solid var(--ms-blue);padding:14px 16px;border-radius:0 var(--rl) var(--rl) 0;font-size:14px;line-height:1.65;color:var(--ms-neutral-90);max-width:760px;margin-bottom:20px}
+
+.cta-band{background:linear-gradient(140deg,#001030,#003070 45%,#0078D4);border-radius:var(--rl);padding:44px 24px;text-align:center}
+.cta-band h3{font-size:24px;font-weight:700;color:#fff;margin-bottom:10px}
+.cta-band p{font-size:15px;color:rgba(255,255,255,.72);margin:0 auto 24px;max-width:520px}
+.cta-band a{display:inline-flex;background:#fff;color:var(--ms-blue);border-radius:var(--r);padding:12px 28px;font-size:14px;font-weight:700;text-decoration:none}
+
+footer{background:var(--ms-neutral-dk);padding:24px 16px}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-logo{display:flex;align-items:center;gap:8px}
+.foot-name{font-size:13px;color:#fff}.foot-name .g{font-weight:300;color:var(--ms-teal)}.foot-name .t{font-weight:700}
+.foot-links{display:flex;gap:16px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:rgba(255,255,255,.55);text-decoration:none}.foot-links a:hover{color:#fff}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.4);width:100%;text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:2000}
+
+/* ---------- nudge ---------- */
+.nudge{margin-top:14px;padding:14px;border-radius:var(--rl);background:linear-gradient(160deg,#DFF6DD,#EFF6FC);border:1px solid #B7E1CD;display:grid;gap:8px}
+.nudge b{font-size:14px;color:var(--ms-green)}.nudge span{font-size:13px;color:var(--ms-neutral-90);line-height:1.5}
+
+/* ---------- assessment ---------- */
+.assess{background:#fff;border:1px solid var(--ms-neutral-30);border-radius:12px;padding:24px;max-width:820px;box-shadow:var(--e2)}
+.assess-dims{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:20px}
+.assess-dims li{background:var(--ms-neutral-10);border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:12px 14px;font-size:13px;color:var(--ms-neutral-60);line-height:1.45}
+.assess-dims b{display:block;font-size:14px;color:var(--ms-neutral-dk);margin-bottom:2px}
+.btn.big{font-size:16px;padding:12px 24px}
+.aq{border:none}
+.aq legend{display:block;margin-bottom:10px}
+.aq-step{display:block;font-size:12px;font-weight:700;color:var(--ms-teal-dk);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.aq-text{display:block;font-size:19px;font-weight:700;color:var(--ms-neutral-dk);line-height:1.35}
+.aq legend.need .aq-text::after{content:" Please choose an answer.";color:#C50F1F;font-size:14px;font-weight:600}
+.aq-bar{height:6px;background:var(--ms-neutral-20);border-radius:6px;overflow:hidden;margin:4px 0 16px}.aq-bar i{display:block;height:100%;background:linear-gradient(90deg,#00B294,#0078D4)}
+.aq-opt{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1.5px solid var(--ms-neutral-30);border-radius:var(--rl);margin-bottom:8px;cursor:pointer;font-size:15px;line-height:1.4}
+.aq-opt:hover{border-color:var(--ms-blue)}
+.aq-opt:has(input:checked){border-color:var(--ms-blue);background:var(--ms-blue-lt)}
+.aq-opt input{margin-top:3px;accent-color:var(--ms-blue);width:18px;height:18px;flex:none}
+.aq-nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.ar-head{background:linear-gradient(135deg,#003070,#0078D4);color:#fff;border-radius:var(--rl);padding:20px;margin-bottom:18px}
+.ar-level span{display:block;font-size:13px;color:rgba(255,255,255,.8)}
+.ar-level b{display:block;font-size:34px;line-height:1.15;margin:2px 0;outline:none}
+.ar-head p{font-size:15px;line-height:1.6;color:rgba(255,255,255,.9);margin-top:8px}
+.ar-dims{display:grid;gap:12px;margin-bottom:20px}
+.ar-dim-top{display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:var(--ms-neutral-dk);margin-bottom:4px}
+.ar-bar{height:10px;background:var(--ms-neutral-20);border-radius:10px;overflow:hidden}.ar-bar i{display:block;height:100%;background:linear-gradient(90deg,#00B294,#107C10);border-radius:10px}
+.ar-h{font-size:18px;color:var(--ms-neutral-dk);margin:18px 0 8px}
+.ar-plan{padding-left:20px;font-size:15px;line-height:1.6}.ar-plan li{margin-bottom:6px}.ar-plan b{color:var(--ms-teal-dk)}
+.ar-more{margin-top:14px;border:1px solid var(--ms-neutral-30);border-radius:var(--rl);padding:10px 14px}
+.ar-more summary{cursor:pointer;font-weight:600;font-size:14px}
+.ar-more h4{font-size:14px;margin:12px 0 4px}.ar-more ul{padding-left:20px;font-size:14px;line-height:1.55;color:var(--ms-neutral-90)}
+.af{margin-top:22px;padding-top:18px;border-top:1px solid var(--ms-neutral-30)}
+.af-intro{font-size:14px;color:var(--ms-neutral-60);margin-bottom:12px;line-height:1.6}
+.af-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:640px){.af-grid{grid-template-columns:1fr}}
+.af-field{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.af-field:last-child{grid-column:1/-1}
+.af-label{font-weight:600;color:var(--ms-neutral-dk)}
+.af-field input,.af-field select,.af-field textarea{font:inherit;font-size:15px;padding:9px 10px;border:1px solid var(--ms-neutral-40);border-radius:var(--r);background:#fff;color:var(--ms-neutral-dk);width:100%}
+.af-hint{font-size:12px;color:var(--ms-neutral-60)}
+.af-check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;margin-bottom:10px;color:var(--ms-neutral-90)}
+.af-check input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--ms-blue)}
+.af-ts{margin:6px 0 12px;min-height:0}
+.af-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.af-actions a{font-size:13px}
+.af-status{font-size:14px;margin-top:10px;line-height:1.55;color:var(--ms-neutral-60)}
+.af-status.err{color:#C50F1F}.af-status.ok{color:var(--ms-green);font-weight:600}
+
+/* ---------- Ember chat ---------- */
+.ember-launch{position:fixed;right:16px;bottom:16px;z-index:1500;display:inline-flex;align-items:center;gap:8px;background:var(--ms-neutral-dk);color:#fff;border:none;border-radius:100px;padding:12px 18px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:var(--e16)}
+.ember-launch:hover{background:#000}
+.ember-dot{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFD27A,#FF8C00);box-shadow:0 0 8px #FF8C00}
+.ember-panel{position:fixed;right:16px;bottom:72px;z-index:1600;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 100px));background:#fff;border-radius:14px;box-shadow:var(--e16);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--ms-neutral-30)}
+.ember-panel[hidden]{display:none}
+.ember-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:linear-gradient(135deg,#003070,#0078D4);color:#fff}
+.ember-title{font-weight:700;font-size:15px}.ember-sub{font-size:11.5px;color:rgba(255,255,255,.75)}
+.ember-x{background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer}
+.ember-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--ms-neutral-10)}
+.ember-msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.5;white-space:pre-wrap}
+.ember-msg.bot{background:#fff;border:1px solid var(--ms-neutral-30);align-self:flex-start;border-bottom-left-radius:4px}
+.ember-msg.me{background:var(--ms-blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.ember-msg.typing{color:var(--ms-neutral-60)}
+.ember-tag{display:block;margin-top:4px;font-size:10.5px;font-weight:700;color:var(--ms-green);text-transform:uppercase;letter-spacing:.4px}
+.ember-chips{display:flex;gap:6px;overflow-x:auto;padding:8px 10px;border-top:1px solid var(--ms-neutral-30)}
+.ember-chip{flex:none;font:inherit;font-size:12.5px;padding:6px 10px;border-radius:100px;border:1px solid var(--ms-blue-20);background:var(--ms-blue-lt);color:var(--ms-blue-dk);cursor:pointer}
+.ember-form{display:flex;gap:6px;padding:8px 10px;border-top:1px solid var(--ms-neutral-30)}
+.ember-form textarea{flex:1;resize:none;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--ms-neutral-40);border-radius:var(--r);max-height:90px}
+.ember-send{font:inherit;font-weight:700;font-size:13px;background:var(--ms-blue);color:#fff;border:none;border-radius:var(--r);padding:0 14px;cursor:pointer}
+.ember-note{font-size:11px;color:var(--ms-neutral-60);padding:0 12px 10px;line-height:1.45}
+@media(max-width:480px){.ember-panel{right:8px;left:8px;width:auto;bottom:70px;height:calc(100vh - 90px)}}
+
+/* ---------- print: the card only ---------- */
+@media print{
+  @page{size:letter portrait;margin:12mm}
+  nav,.page-hero,.howto,.panel,#rounds,#followups,#assessment,#educators,#sources,.ember-launch,.ember-panel,.cta-band,footer,.banner,.skip,#fx,.sec-sub,.no-print{display:none!important}
+  .content{padding:0}
+  .sec{margin:0}
+  .game{display:block}
+  .board-wrap{box-shadow:none;background:#fff;border:2px solid #000}
+  .colhead{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cell{border:1.5px solid #555}
+  .cell .lb{font-size:14px}
+  .cell[aria-pressed="true"]::after{display:none}
+  .cell[aria-pressed="true"]:not(.free){background:#fff;border-color:#555}
+  .cell.win{box-shadow:none}
+  .cell.free{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-only{display:block!important}
+}
+.print-only{display:none;margin-top:10px;font-size:11px;color:#333;text-align:center}
+</style>
+</head>
+<body>
+<a class="skip" href="#play">Skip to the game</a>
+<nav aria-label="Main">
+  <div class="nav-inner">
+    <a class="logo" href="/" aria-label="GaiaThinker home"><svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="ng" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#0078D4"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#ng)"/><line x1="28" y1="50" x2="28" y2="30" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="28" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round" opacity=".9"/><line x1="28" y1="30" x2="17" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><line x1="28" y1="30" x2="39" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="17" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="39" cy="18" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="14" r="2.8" fill="white" opacity=".95"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg>
+      <span class="logo-name"><span class="g">Gaia</span><span class="t">Thinker</span></span>
+    </a>
+    <div class="nav-space"></div>
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/educators">Educators</a>
+    <a class="nav-link" href="/insights">Insights</a>
+    <a class="nav-link active" href="/green-ai-bingo" aria-current="page">Green AI Bingo</a>
+    <a class="nav-btn" href="/#contact">Request Access</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="eyebrow">Made for BC Climate Action Week 2026 · Play anytime</div>
+  <h1>Green AI <span>Bingo</span></h1>
+  <p>Every AI answer runs on electricity and water in a data centre somewhere. Most of the waste comes from habits, not from AI itself. Collect 24 lower-impact habits and see how many you already have.</p>
+  <div class="hero-chips">
+    <div class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Free</div>
+    <div class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>No accounts</div>
+    <div class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>No tracking</div>
+    <div class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Every fact sourced</div>
+  </div>
+  <a class="hero-cta" href="#play">Play now</a>
+</header>
+
+<main class="content">
+
+  <section class="sec" id="play" aria-labelledby="play-title">
+    <h2 class="sec-title" id="play-title">Get a GREEN line</h2>
+    <p class="sec-sub">Tap a square to learn the habit and why it matters. Mark it when you've done it this week. Five in a row in any direction is a GREEN line. All 25 makes you a Green AI Champion.</p>
+    <div class="howto">
+      <div><b>1. Tap a square</b><span>Each one explains a habit with real numbers and a source.</span></div>
+      <div><b>2. Do it, then mark it</b><span>It's on the honour system. The habit only counts if you actually do it.</span></div>
+      <div><b>3. Share your card</b><span>Download an image of your card, or print a blank one for class.</span></div>
+    </div>
+
+    <div class="banner" id="banner" role="status"></div>
+
+    <div class="game">
+      <div class="board-wrap">
+        <div class="board-top">
+          <span class="t">Green AI Bingo</span>
+          <span class="n" id="cardNo">Card #—</span>
+        </div>
+        <div class="board" id="board" role="group" aria-label="Bingo card. Use arrow keys to move between squares."></div>
+        <div class="print-only">Mark a square when you've done the habit. Five in a row = GREEN line. Facts and sources: gaiathinker.ca/green-ai-bingo</div>
+      </div>
+
+      <aside class="panel" aria-label="Your progress">
+        <div class="score"><span class="big" id="count">1</span><span class="of">/ 25 squares</span></div>
+        <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+        <div class="rank">Level: <b id="rank">Seedling</b></div>
+        <div class="lines" id="lines">0 GREEN lines</div>
+        <div class="btns">
+          <button class="btn primary" id="shareBtn" type="button">Share my card</button>
+          <button class="btn" id="printBtn" type="button">Print a blank card</button>
+          <button class="btn" id="newBtn" type="button">New card</button>
+        </div>
+        <div class="nudge" id="assessNudge" hidden>
+          <b>Nice GREEN line!</b>
+          <span>Leading a school, library or team? Get a free 3-minute Green AI Readiness check and a 90-day plan.</span>
+          <button class="btn primary" id="assessNudgeBtn" type="button">Start the free check</button>
+        </div>
+        <p class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg><span>The game runs entirely in your browser, and your progress is saved only on this device. The Ember chat and the assessment are optional. <a href="/privacy#green-ai-bingo">Privacy</a></span></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sec" id="rounds" aria-labelledby="rounds-title">
+    <h2 class="sec-title" id="rounds-title">Lightning round: Which uses less?</h2>
+    <p class="sec-sub">Eight quick choices. Pick the option that needs less computing. Each answer explains why.</p>
+    <div class="quiz" id="quiz" aria-live="polite"></div>
+  </section>
+
+  <section class="sec" id="followups" aria-labelledby="fu-title">
+    <h2 class="sec-title" id="fu-title">Why vague prompts add up</h2>
+    <p class="sec-sub">A chat model doesn't remember your conversation the way a person does. On every new message it re-reads everything said so far. Drag the slider to see what each "no, I meant…" costs.</p>
+    <div class="calc">
+      <div>
+        <label for="turns">Messages before you get what you wanted: <span id="turnsVal">5</span></label>
+        <input type="range" id="turns" min="1" max="12" value="5"/>
+        <div class="out" id="calcOut" aria-live="polite"></div>
+      </div>
+      <div>
+        <div class="bars" id="bars" aria-hidden="true"></div>
+        <div class="bars-cap"><span>Message 1</span><span>Text the model re-reads on each message</span></div>
+        <p class="fine">This is an illustration, not a measurement. It assumes about 200 words per exchange. Some providers cache repeated text, which lowers the cost of re-reading but does not remove it. Either way, one clear prompt beats a long back-and-forth.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="assessment" aria-labelledby="as-title">
+    <h2 class="sec-title" id="as-title">Free Green AI Readiness Assessment</h2>
+    <p class="sec-sub">For leaders, educators and staff acting for an organization. Answer 10 questions in about 3 minutes and see where your organization stands across five areas, with practical actions and a 90-day plan. Your results appear right away. Emailing a copy is optional.</p>
+    <div class="assess">
+      <div id="assessIntro" class="assess-intro">
+        <ul class="assess-dims">
+          <li><b>Strategy &amp; leadership</b>Goals, ownership, a roadmap</li>
+          <li><b>Policy, privacy &amp; risk</b>Acceptable use, FIPPA and PIPEDA, data residency</li>
+          <li><b>People &amp; skills</b>Training, prompting, checking output</li>
+          <li><b>Tools &amp; workflows</b>Approved tools, measured results</li>
+          <li><b>Green &amp; responsible AI</b>Efficient use, footprint in procurement</li>
+        </ul>
+        <button class="btn primary big" id="assessStart" type="button">Start the assessment</button>
+        <p class="fine">Answers are scored in your browser. Nothing is sent unless you choose to email your report.</p>
+      </div>
+      <div id="assessBody" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="educators" aria-labelledby="edu-title">
+    <h2 class="sec-title" id="edu-title">For teachers and librarians</h2>
+    <p class="sec-sub">Use Green AI Bingo as a 20-minute climate and digital-literacy activity for Grades 6–12, or set it out on a library table. Free to print and share, with no sign-up.</p>
+    <div class="edu">
+      <div><b>Warm-up (5 min)</b><p>Ask the class: "Where does an AI answer actually come from?" List guesses, then show the "One prompt's footprint" and "BC grid vs. the cloud" squares.</p></div>
+      <div><b>Play (10 min)</b><p>In pairs, students open a square, read the "why," and decide which habits they already have. Then run the Lightning round together as a class.</p></div>
+      <div><b>Reflect (5 min)</b><p>Each student commits to one habit for the week. This connects to the First Peoples Principle of Learning: "Learning involves recognizing the consequences of one's actions."</p></div>
+    </div>
+    <div class="edu-actions">
+      <a class="btn primary" href="/green-ai-bingo-card.pdf" download>Download printable card + guide (PDF)</a>
+      <a class="btn" href="/educators">Explore GaiaThinker for your class</a>
+    </div>
+  </section>
+
+  <section class="sec" id="sources" aria-labelledby="src-title">
+    <h2 class="sec-title" id="src-title">Sources and honesty notes</h2>
+    <div class="note">A single text prompt uses very little energy. The impact comes from scale (billions of prompts a day) and from the heaviest uses: large models, reasoning modes, images and video. These habits target the heaviest uses. Squares marked <span class="kind how">How it works</span> explain how AI systems work in general; squares marked <span class="kind fact">Sourced</span> cite the figures below. Numbers come from different studies and methods, so treat them as orders of magnitude, not exact values.</div>
+    <ol class="srcs" id="srcList"></ol>
+  </section>
+
+  <div class="cta-band">
+    <h3>Climate learning that practises what it teaches</h3>
+    <p>GaiaThinker brings BC-focused climate literacy to Grades 9–12, with no student accounts and no personal data stored.</p>
+    <a href="/educators">See how it works</a>
+  </div>
+</main>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg-head">
+    <div class="col" id="dlgCol"></div>
+    <h3 id="dlgTitle"></h3>
+    <button class="dlg-x" id="dlgX" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="dlg-body">
+    <h4>Try it</h4>
+    <p id="dlgDo"></p>
+    <h4>Why it matters <span class="kind" id="dlgKind"></span></h4>
+    <p id="dlgWhy"></p>
+    <div class="src" id="dlgSrc"></div>
+    <div class="dlg-actions">
+      <button class="btn primary" id="dlgMark" type="button"></button>
+      <button class="btn" id="dlgClose" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="sr-only" id="live" aria-live="assertive"></div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo"><svg width="22" height="22" viewBox="0 0 56 56" fill="none" aria-hidden="true"><defs><linearGradient id="fg" x1="14" y1="52" x2="40" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00B294"/><stop offset="100%" stop-color="#4FC3E8"/></linearGradient></defs><path d="M28 4 C22 7,10 16,10 27 C10 40,18 50,28 52 C38 50,48 40,46 28 C44 18,36 10,28 4 Z" fill="url(#fg)"/><circle cx="28" cy="30" r="3.2" fill="white"/></svg><span class="foot-name"><span class="g">Gaia</span><span class="t">Thinker</span></span></div>
+    <div class="foot-links"><a href="/">Home</a><a href="/educators">Educators</a><a href="/districts">For Districts</a><a href="/privacy">Privacy</a><a href="/accessibility">Accessibility</a><a href="/terms">Terms</a></div>
+    <div class="foot-copy">&copy; 2026 GaiaLink Intelligence Systems Inc. GaiaThinker&trade;. Green AI Bingo may be printed and shared freely for non-commercial education.</div>
+  </div>
+</footer>
+<script src="/green-ai-bingo.js" defer></script>
+<script type="module" src="/green-ai-assist.js"></script>
+</body>
+</html>

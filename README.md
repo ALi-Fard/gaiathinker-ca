@@ -191,3 +191,49 @@ Copyright © 2026 GaiaLink Intelligence Systems Inc. All rights reserved.
 See [LICENSE.md](./LICENSE.md) for terms.
 
 GaiaThinker™ is a trademark of GaiaLink Intelligence Systems Inc.
+
+---
+
+## Green AI Bingo: Ask Ember and the Readiness Assessment
+
+`/green-ai-bingo` runs fully in the browser. Two optional features call same-origin Cloudflare Pages Functions:
+
+| Endpoint | Purpose | Upstream |
+|---|---|---|
+| `POST /api/chat` | "Ask Ember", the game guide (quick questions are answered client-side without AI) | Azure OpenAI (Canadian region) |
+| `POST /api/assessment` | Emails a Green AI Readiness report the person asked for, and sends a lead notification with a consent record | Turnstile, Azure OpenAI (optional note), Azure Communication Services Email |
+
+Nothing is written to a database. Chat is stateless. The report and lead go by email only.
+
+### Environment variables (Cloudflare Pages → Settings → Variables and secrets, Production)
+
+| Name | Required | Example / notes |
+|---|---|---|
+| `AZURE_OPENAI_ENDPOINT` | chat | `https://<resource>.openai.azure.com` (resource in **Canada East** or **Canada Central**) |
+| `AZURE_OPENAI_KEY` | chat | secret |
+| `AZURE_OPENAI_DEPLOYMENT` | chat | a small model deployment, e.g. `gpt-4o-mini`. Use a **Standard (regional)** deployment, not Global, to keep processing in Canada |
+| `AZURE_OPENAI_API_VERSION` | no | default `2024-10-21` |
+| `TURNSTILE_SECRET_KEY` | assessment email | secret, from Cloudflare Turnstile |
+| `ACS_CONNECTION_STRING` | assessment email | secret, `endpoint=https://<acs>.communication.azure.com/;accesskey=...` (create the ACS resource with data location **Canada**) |
+| `EMAIL_FROM` | assessment email | verified sender, e.g. `DoNotReply@mail.gaiathinker.ca` |
+| `LEADS_TO` | recommended | inbox that receives lead notifications |
+| `CONTACT_EMAIL` | no | reply-to on reports (default `ali.reza.farshadfard@gaiasystems.ca`) |
+| `ORG_POSTAL_ADDRESS` | **yes for CASL** | mailing address shown in the email footer |
+| `BOOKING_URL` | no | default `https://gaiasystems.ca/contact` |
+| `ALLOWED_ORIGINS` | no | extra origins, comma-separated (e.g. a `*.pages.dev` preview URL) |
+
+The public **Turnstile site key** goes in `green-ai-bingo.html`: `<meta name="gab-turnstile-sitekey" content="...">`. While it is empty, emailed reports are switched off and results show on screen only.
+
+### Setup checklist
+
+1. Azure OpenAI: create the resource in Canada East, deploy a small model (Standard), and copy the endpoint and key. Consider applying for modified abuse monitoring so that Microsoft does not retain prompts.
+2. Azure Communication Services: create an Email Communication Service, add the domain `mail.gaiathinker.ca`, add its SPF and DKIM records in Cloudflare DNS, then connect it to an ACS resource with data location Canada.
+3. Cloudflare Turnstile: add a widget for `gaiathinker.ca` and put the site key in the meta tag and the secret key in the environment variables.
+4. Cloudflare WAF → Rate limiting rule: path starts with `/api/`, 20 requests per minute per IP, then block for 10 minutes.
+5. Deploy, then test: ask Ember a question, then complete the assessment and email it to yourself.
+
+Without Azure configured, the chat falls back to saved answers, and the game is never affected.
+
+### Local testing
+
+`npx wrangler pages dev .` with a `.dev.vars` file (gitignored). `TURNSTILE_VERIFY_URL` can point the Turnstile check at a mock server.
